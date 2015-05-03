@@ -1,7 +1,3 @@
-var UP_KEY = Phaser.Keyboard.UP;
-var LEFT_KEY = Phaser.Keyboard.LEFT;
-var RIGHT_KEY = Phaser.Keyboard.RIGHT;
-
 var Player = function(game) {
 
     Phaser.Sprite.call(this, game, 100, 100, 'player');
@@ -11,9 +7,11 @@ var Player = function(game) {
     this.body.gravity.y = 1000;
     this.body.collideWorldBounds = false;
     
-    //  Our two animations, walking left and right.
+    // Our two animations, walking left and right.
     this.animations.add('left', [0, 1, 2, 3], 10, true);
     this.animations.add('right', [5, 6, 7, 8], 10, true);
+
+    this.cursors = this.game.input.keyboard.createCursorKeys();
 
     // GAME VARIABLES
     this.life = 100;
@@ -24,20 +22,17 @@ var Player = function(game) {
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
-Player.prototype.update = function() {
-    this.handleKeys();  
+Player.prototype.update = function(game) {
+    this.handleKeys(game);  
 };
 
 Player.prototype.handleKeys = function () {
 
-    // keep the key from propogating up to the browser
-    this.game.input.keyboard.addKeyCapture([UP_KEY, LEFT_KEY, RIGHT_KEY]);
+    var upKeyPressed = this.cursors.up.isDown;
+    var leftKeyPressed = this.cursors.left.isDown;
+    var rightKeyPressed = this.cursors.right.isDown;
 
-    upKeyPressed = this.game.input.keyboard.isDown(UP_KEY);
-    leftKeyPressed = this.game.input.keyboard.isDown(LEFT_KEY);
-    rightKeyPressed = this.game.input.keyboard.isDown(RIGHT_KEY);
-
-    //  Reset the players velocity (movement)
+    // Reset the players velocity (movement)
     this.body.velocity.x = 0;
 
     if (upKeyPressed) {
@@ -75,7 +70,7 @@ Player.prototype.moveRight = function() {
 }
 
 Player.prototype.standStill = function() {
-    
+
     this.animations.stop();
     this.frame = 4;
 }

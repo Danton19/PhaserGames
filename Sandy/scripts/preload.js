@@ -9,7 +9,7 @@ BasicGame.Preload.prototype = {
 
         // IMAGES
         this.game.load.image('sky', 'images/sky.png');
-        this.game.load.image('ground', 'images/platform.png');
+        this.game.load.image('ground', 'images/ground.png');
         this.game.load.spritesheet('player', 'images/player.png', 32, 48);
         
         // AUDIO

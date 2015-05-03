@@ -9,14 +9,10 @@ GameState.prototype.create = function() {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'sky');
 
-    //GROUND // TODO: Move to different class as in player // see: http://www.codevinsky.com/phaser-2-0-tutorial-flappy-bird-part-2/
     this.platforms = this.game.add.group();
     this.platforms.enableBody = true;
-    this.ground = this.platforms.create(0, this.game.world.height - 64, 'ground');
-    this.ground.body.immovable = true;
-    this.ground.width = this.game.width;
-    
-    // create a new Player object
+
+    this.ground = new Platform(this.game, this.platforms, 0, this.game.world.height - 64, 'ground');
     this.player = new Player(this.game);
 };
 
