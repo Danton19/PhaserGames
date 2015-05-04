@@ -9,23 +9,37 @@ GameState.prototype.create = function() {
 
     this.goFullScreen();
     
-    this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.game.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'sky');
+    this.game.physics.startSystem(Phaser.Physics.ARCADE); 
 
-    this.platforms = this.game.add.group();
-    this.platforms.enableBody = true;
+    //LEVEL TEST
+    this.map = this.game.add.tilemap('level0');
 
-    this.ground = new Platform(this.game, this.platforms, 0, GAME_HEIGHT - 64, 'ground');
-    this.ground = new Platform(this.game, this.platforms, 0, GAME_HEIGHT, 'ocean');
+    //add the tileset as named in Tiled
+    this.map.addTilesetImage('dirt', 'dirt');
+    this.map.addTilesetImage('sky', 'sky');
+    this.map.addTilesetImage('player', 'player');
+
+    //create layers(bloqued = collision layer)
+    this.backgroundlayer = this.map.createLayer('backgroundLayer');
+    this.blockedLayer = this.map.createLayer('blockLayer');
+
+    //collision on blockedLayer(1300 nunmber get it from level .json file)
+    this.map.setCollisionBetween(1, 1300, true, 'blockLayer');
+
+    //resizes the game world to match the layer dimensions....dont know why JAJA
+    this.backgroundlayer.resizeWorld();
+
+    //finally add player (over everything else)
     this.player = new Player(this.game);
 
     // CAMERA
-    this.game.world.setBounds(0, 0, 3000, GAME_HEIGHT * 1.10);
+    this.game.world.setBounds(0, 0, this.backgroundlayer.width, GAME_HEIGHT * 1.10);
     this.game.camera.follow(this.player);
 };
 
 GameState.prototype.update = function() {
-    this.game.physics.arcade.collide(this.player, this.platforms);
+    //this.game.physics.arcade.collide(this.player, this.platforms);
+    this.game.physics.arcade.collide(this.player, this.blockedLayer);
 };
 
 GameState.prototype.goFullScreen = function() {

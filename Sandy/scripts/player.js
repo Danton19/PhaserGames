@@ -1,6 +1,6 @@
 var Player = function(game) {
 
-    Phaser.Sprite.call(this, game, 100, 100, 'player');
+    Phaser.Sprite.call(this, game, 300, 0, 'player');
     this.anchor.setTo(0.5, 0.5);
     this.game.physics.arcade.enableBody(this);
     this.body.bounce.y = 0.0;
@@ -58,7 +58,7 @@ Player.prototype.handleKeys = function () {
 Player.prototype.jump = function() {
 
     //  Allow the player to jump only if they are touching the ground.
-    if (this.body.touching.down)
+    if (this.body.onFloor())
     {
         this.body.velocity.y = -this.JUMP_VELOCITY;
     }
