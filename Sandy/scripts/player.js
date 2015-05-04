@@ -15,6 +15,8 @@ var Player = function(game) {
 
     // GAME VARIABLES
     this.life = 100;
+    this.X_VELOCITY = 150;
+    this.JUMP_VELOCITY = 500;
 
     this.game.add.existing(this);
 };
@@ -31,6 +33,7 @@ Player.prototype.handleKeys = function () {
     var upKeyPressed = this.cursors.up.isDown;
     var leftKeyPressed = this.cursors.left.isDown;
     var rightKeyPressed = this.cursors.right.isDown;
+    var shiftKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT);
 
     // Reset the players velocity (movement)
     this.body.velocity.x = 0;
@@ -46,6 +49,10 @@ Player.prototype.handleKeys = function () {
     } else {
         this.standStill();
     }
+
+    if (shiftKeyPressed) {
+        this.run();
+    }
 };
 
 Player.prototype.jump = function() {
@@ -53,19 +60,19 @@ Player.prototype.jump = function() {
     //  Allow the player to jump only if they are touching the ground.
     if (this.body.touching.down)
     {
-        this.body.velocity.y = -500;
+        this.body.velocity.y = -this.JUMP_VELOCITY;
     }
 };
 
 Player.prototype.moveLeft = function() {
 
-    this.body.velocity.x = -150;
+    this.body.velocity.x = -this.X_VELOCITY;
     this.animations.play('left');
 }
 
 Player.prototype.moveRight = function() {
 
-    this.body.velocity.x = 150;
+    this.body.velocity.x = this.X_VELOCITY;
     this.animations.play('right');
 }
 
@@ -73,4 +80,8 @@ Player.prototype.standStill = function() {
 
     this.animations.stop();
     this.frame = 4;
+}
+
+Player.prototype.run = function() {
+    this.body.velocity.x *= 2;
 }
