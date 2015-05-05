@@ -33,7 +33,7 @@ GameState.prototype.create = function() {
     this.player = new Player(this.game);
 
     // CAMERA
-    this.game.world.setBounds(0, 0, this.backgroundlayer.width, GAME_HEIGHT * 1.10);
+    this.game.world.setBounds(0, 0, this.backgroundlayer.width, GAME_HEIGHT);
     this.game.camera.follow(this.player);
 };
 
