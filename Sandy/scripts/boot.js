@@ -4,6 +4,7 @@ BasicGame.Boot = function (game) {
 BasicGame.Boot.prototype = {
 
     preload: function () {
+    	this.game.load.image('preloader', 'images/preloader.png');
     },
 
     create: function () {
