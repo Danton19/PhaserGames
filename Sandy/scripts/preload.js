@@ -23,11 +23,11 @@ BasicGame.Preload.prototype = {
         this.game.load.spritesheet('player', 'images/player.png', 32, 48);
 
         // MENU
-        // this.game.load.image('menu_title', 'images/menu/menu_game_title.png');
-        // this.game.load.image('menu_arrow', 'images/menu/menu_arrow.png');
-        // this.game.load.image('menu_button1', 'images/menu/menu_button.png');
-        // this.game.load.image('menu_button2', 'images/menu/menu_button2.png');
-        // this.game.load.image('menu_button3', 'images/menu/menu_button3.png');
+        this.game.load.image('menu_title', 'images/menu/menu_game_title.png');
+        this.game.load.image('menu_arrow', 'images/menu/menu_arrow.png');
+        this.game.load.image('menu_button1', 'images/menu/menu_button.png');
+        this.game.load.image('menu_button2', 'images/menu/menu_button2.png');
+        this.game.load.image('menu_button3', 'images/menu/menu_button3.png');
         
         // AUDIO
     },
@@ -38,8 +38,8 @@ BasicGame.Preload.prototype = {
 
     update: function() {
       if(!!this.ready) {
-        // this.game.state.start('menu'); //TODO
-        this.state.start('game');
+        this.game.state.start('menu');
+        // this.state.start('game');
       }
     },
     onLoadComplete: function() {

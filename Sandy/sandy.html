@@ -7,6 +7,7 @@
     <script src="scripts/phaser/phaser.js"></script>
     <script src="scripts/graphics.js"></script>
     <script src="scripts/preload.js"></script>
+    <script src="scripts/menu.js"></script>
     <script src="scripts/boot.js"></script>
     <script src="scripts/platform.js"></script>
     <script src="scripts/player.js"></script>
@@ -35,6 +36,7 @@
         
         game.state.add('boot', BasicGame.Boot);
         game.state.add('preload', BasicGame.Preload);
+        game.state.add('menu', BasicGame.Menu);
         game.state.add('game', GameState);
         game.state.start('boot');
     };
