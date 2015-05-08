@@ -1,11 +1,17 @@
 var BasicGame = {};
 
 BasicGame.Preload = function (game) {
-    this.preloadBar = null;
+    this.asset = null;
+    this.ready = false;
 };
 
 BasicGame.Preload.prototype = {
     preload: function () {
+        // PRELOAD
+        this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
+        this.asset = this.add.sprite(this.game.width/2, this.game.height/2, 'preloader');
+        this.asset.anchor.setTo(0.5, 0.5);
+        this.load.setPreloadSprite(this.asset);
 
         // IMAGES
         this.game.load.image('sky', 'images/sky.png');
@@ -23,10 +29,17 @@ BasicGame.Preload.prototype = {
         this.game.load.audio('slashSnd', ['audio/Slash8-Bit.ogg']);
         this.game.load.audio('swishSnd', ['audio/Soft_Airy_Swish.ogg']);
     },
-    
-    create: function () {
-        //this.preloadBar.cropEnabled = false;
 
-        this.state.start('game');
+    create: function () {
+        this.asset.cropEnabled = false;
+    },
+
+    update: function() {
+      if(!!this.ready) {
+        this.game.state.start('game');
+      }
+    },
+    onLoadComplete: function() {
+      this.ready = true;
     }
 };

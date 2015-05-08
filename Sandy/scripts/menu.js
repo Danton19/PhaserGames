@@ -20,19 +20,19 @@ BasicGame.Menu.prototype = {
 
     //BUTTONS
     //We now create our buttons using a constructor function, YAY!
-        this.buttons = this.game.add.group();
+    this.buttons = this.game.add.group();
 
-        this.button1 = this.addButton(1, this.playState);
-        this.button1.anchor.setTo(0.5, 0.5);
-        this.buttons.add(this.button1);
+    this.button1 = this.addButton(1, this.playState);
+    this.button1.anchor.setTo(0.5, 0.5);
+    this.buttons.add(this.button1);
 
-        this.button2 = this.addButton(2, this.playState);
-        this.button2.anchor.setTo(0.5, 0.5);
-        this.buttons.add(this.button2);
+    this.button2 = this.addButton(2, this.playState);
+    this.button2.anchor.setTo(0.5, 0.5);
+    this.buttons.add(this.button2);
 
-        this.button3 = this.addButton(3, this.playState);
-        this.button3.anchor.setTo(0.5, 0.5);
-        this.buttons.add(this.button3);
+    this.button3 = this.addButton(3, this.playState);
+    this.button3.anchor.setTo(0.5, 0.5);
+    this.buttons.add(this.button3);
 
     //ARROW
 
