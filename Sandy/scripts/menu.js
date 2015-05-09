@@ -6,17 +6,16 @@ BasicGame.Menu = function (game) {
 BasicGame.Menu.prototype = {
   preload: function() {
   },
+
   //We track the offset of each button
   pos: [-50, 50, 150],
+
   //We track which callback each button has
-  callbacks: ['playState', 'playState', 'playState'],
+  callbacks: ['playState', 'howToState', 'creditsState'],
+
   create: function() {
-
-    
-
     // this.background = this.game.add.sprite(0, 0, 'background'); //TODO: Add cool background image
     this.game.stage.backgroundColor = 0x000000;
-
 
     //BUTTONS
     //We now create our buttons using a constructor function, YAY!
@@ -35,8 +34,6 @@ BasicGame.Menu.prototype = {
     this.buttons.add(this.button3);
 
     //ARROW
-
-
     //Add it with initial position at first button
     this.arrow = this.game.add.image(this.game.world.centerX - 100,
     this.game.world.centerY - 50, 'menu_arrow');
@@ -66,14 +63,14 @@ BasicGame.Menu.prototype = {
         this.gameTitle = this.game.add.image(this.game.world.centerX,
         this.game.world.centerY - 200, 'menu_title');
         this.gameTitle.anchor.setTo(0.5, 0.5);
-        // this.buttons.draw();
-        // this.arrow.draw(buttons, 1);
         this.cursors = this.game.input.keyboard.createCursorKeys();
-  },
-  update: function() {
+    },
+
+    update: function() {
     this.move(this.cursors, this.buttons);
-  },
-  move: function (cursors, buttons) {
+    },
+
+    move: function (cursors, buttons) {
         if (cursors.down.isDown && this.arrow.canMove) {
             //This stops the arrow from traveling way too fast
             this.arrow.canMove = false;
@@ -136,5 +133,13 @@ BasicGame.Menu.prototype = {
 
     playState: function () {
         this.game.state.start('game');
-    }
+    },
+
+    howToState: function () {
+        this.game.state.start('game'); //TODO
+    },
+
+    creditsState: function () {
+        this.game.state.start('game'); //TODO
+    },
 };

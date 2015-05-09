@@ -10,9 +10,14 @@ GameState.prototype.create = function() {
     this.goFullScreen();
     
     this.game.physics.startSystem(Phaser.Physics.ARCADE); 
-    //Level creation
-    this.level= new Level(this.game);
-    //finally add player (over everything else)
+    // Level creation
+    this.level = new Level(this.game);
+    
+    // Enemies
+    this.enemies = this.game.add.group();
+    this.enemies.add(new Enemy(this.game));
+    
+    // Finally add player (over everything else)
     this.player = new Player(this.game);
 
     // CAMERA
@@ -21,8 +26,11 @@ GameState.prototype.create = function() {
 };
 
 GameState.prototype.update = function() {
+    this.game.physics.arcade.collide(this.enemies, this.level.blockedLayer);
+    this.game.physics.arcade.collide(this.enemies, this.player);//, this.player.damageHit, null, this); // TODO: Investigar que hace el parametro que esta en null
     //this.game.physics.arcade.collide(this.player, this.platforms);
     this.game.physics.arcade.collide(this.player, this.level.blockedLayer);
+
 };
 
 GameState.prototype.goFullScreen = function() {

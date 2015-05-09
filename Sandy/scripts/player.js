@@ -1,4 +1,10 @@
 var Player = function(game) {
+    // CONSTANTS
+    this.X_VELOCITY = 150;
+    this.JUMP_VELOCITY = 500;
+
+    // VARIABLES
+    this.life = 100;
 
     Phaser.Sprite.call(this, game, 300, 0, 'player');
     this.anchor.setTo(0.5, 0.5);
@@ -12,11 +18,6 @@ var Player = function(game) {
     this.animations.add('right', [5, 6, 7, 8], 10, true);
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
-
-    // GAME VARIABLES
-    this.life = 100;
-    this.X_VELOCITY = 150;
-    this.JUMP_VELOCITY = 500;
 
     this.game.add.existing(this);
 };

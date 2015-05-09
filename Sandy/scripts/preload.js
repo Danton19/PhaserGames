@@ -21,6 +21,8 @@ BasicGame.Preload.prototype = {
         this.game.load.image('ground', 'images/ground.png');
         //this.game.load.image('ocean', 'images/ocean.png');
         this.game.load.spritesheet('player', 'images/player.png', 32, 48);
+        // ENEMIES
+        this.game.load.spritesheet('darkEnemy','images/enemies/dark_enemy.png', 32, 48);
 
         // MENU
         this.game.load.image('menu_title', 'images/menu/menu_game_title.png');
