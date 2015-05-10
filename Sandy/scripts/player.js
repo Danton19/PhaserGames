@@ -26,12 +26,12 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function(game) {
-    this.handleKeys(game);  
+    this.handleKeys(game);
 };
 
 Player.prototype.handleKeys = function () {
-
     var upKeyPressed = this.cursors.up.isDown;
+    var spacebarKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
     var leftKeyPressed = this.cursors.left.isDown;
     var rightKeyPressed = this.cursors.right.isDown;
     var shiftKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT);
@@ -39,7 +39,7 @@ Player.prototype.handleKeys = function () {
     // Reset the players velocity (movement)
     this.body.velocity.x = 0;
 
-    if (upKeyPressed) {
+    if (upKeyPressed || spacebarKeyPressed) {
         this.jump();
     };
 
@@ -57,7 +57,6 @@ Player.prototype.handleKeys = function () {
 };
 
 Player.prototype.jump = function() {
-
     //  Allow the player to jump only if they are touching the ground.
     if (this.body.onFloor())
     {
@@ -66,19 +65,16 @@ Player.prototype.jump = function() {
 };
 
 Player.prototype.moveLeft = function() {
-
     this.body.velocity.x = -this.X_VELOCITY;
     this.animations.play('left');
 }
 
 Player.prototype.moveRight = function() {
-
     this.body.velocity.x = this.X_VELOCITY;
     this.animations.play('right');
 }
 
 Player.prototype.standStill = function() {
-
     this.animations.stop();
     this.frame = 4;
 }

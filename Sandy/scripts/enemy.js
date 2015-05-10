@@ -1,13 +1,22 @@
-var Enemy = function(game) {
+var Enemy = function(game, player) {
     // CONSTANTS
-    this.SPEED = 100;
+    this.VELOCITY = 100;
+    this.JUMP_VELOCITY = 400;
+    this.VELOCITY_WHEN_FOLLOWING = this.VELOCITY * 2;
+    this.DISTANCE_TO_FOLLOW_PLAYER = 150;
+    this.DISTANCE_TO_ATTACK_PLAYER = 40;
     this.NEXT_STATE_TIMELAPSE = 800;
 
     // VARIABLES
     this.life = 100;
+    this.isFollowingPlayer = false;
     this.states = ['moveLeft', 'stop', 'moveRight', 'stop'];
     this.currentStateCounter = 0;
     this.nextStateTime = 0;
+    this.previousXPosition = 0;
+
+    // hack for accessing player class
+    this.player = player;
 
     Phaser.Sprite.call(this, game, 600, 300, 'darkEnemy');
     this.anchor.setTo(0.5, 0.5);
@@ -18,6 +27,8 @@ var Enemy = function(game) {
 
     this.animations.add('left', [0, 1, 2, 3], 10, true);
     this.animations.add('right', [5, 6, 7, 8], 10, true);
+    this.animations.add('attackToLeft', [10, 11], 5, true);
+    this.animations.add('attackToRight', [15, 16], 5, true);
 
     this.game.add.existing(this);
 };
@@ -29,7 +40,45 @@ Enemy.prototype.update = function(game) {
     this.decidePath();
 };
 
-Enemy.prototype.decidePath = function(game) {
+Enemy.prototype.decidePath = function() {    
+    if (this.isFollowingPlayer) {
+        if (this.isCloseEnoughToAttack()) {
+            this.attack();
+        } else {
+            this.followPlayer();
+        }
+    } else {
+        this.isFollowingPlayer = this.isPlayerClose();
+
+        this.keepPatrolling();
+    }
+};
+
+Enemy.prototype.followPlayer = function() {
+    if (this.x > this.player.x) {
+        this.moveLeft();
+    } else if (this.x < this.player.x) {
+        this.moveRight();
+    }
+
+    if (this.previousXPosition === this.x) {
+        this.jump();
+    };
+
+    this.previousXPosition = this.x;
+};
+
+Enemy.prototype.isPlayerClose = function() {
+    var distance = this.game.physics.arcade.distanceBetween(this, this.player);
+
+    if (distance < this.DISTANCE_TO_FOLLOW_PLAYER) {
+        return true;
+    };
+
+    return false;
+};
+
+Enemy.prototype.keepPatrolling = function() {
     var now = this.game.time.now;
     
     if (now > this.nextStateTime) {
@@ -44,17 +93,43 @@ Enemy.prototype.decidePath = function(game) {
     };
 };
 
-Enemy.prototype.stop = function(game) {
+Enemy.prototype.stop = function() {
     this.animations.stop();
     this.body.velocity.x = 0;
 };
 
-Enemy.prototype.moveLeft = function(game) {
+Enemy.prototype.moveLeft = function() {
     this.animations.play("left");
-    this.body.velocity.x = -this.SPEED;
+    this.body.velocity.x = -this.VELOCITY;
 };
 
-Enemy.prototype.moveRight = function(game) {
+Enemy.prototype.moveRight = function() {
     this.animations.play("right");
-    this.body.velocity.x = this.SPEED;
+    this.body.velocity.x = this.VELOCITY;
+};
+
+Enemy.prototype.jump = function() {
+    //  Allow jump only if touching the ground
+    if (this.body.onFloor())
+    {
+        this.body.velocity.y = -this.JUMP_VELOCITY;
+    }
+};
+
+Enemy.prototype.isCloseEnoughToAttack = function() {
+    var distance = this.game.physics.arcade.distanceBetween(this, this.player);
+
+    if (distance < this.DISTANCE_TO_ATTACK_PLAYER) {
+        return true;
+    }
+
+    return false;
+};
+
+Enemy.prototype.attack = function() {
+    if (this.x < this.player.x) {
+        this.animations.play("attackToRight");
+    } else {
+        this.animations.play("attackToLeft");
+    }
 };

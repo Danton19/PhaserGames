@@ -13,28 +13,28 @@ GameState.prototype.create = function() {
     // Level creation
     this.level = new Level(this.game);
     
-    // Enemies
-    this.enemies = this.game.add.group();
-    this.enemies.add(new Enemy(this.game));
-
-    //this.newItems= this.game.add.group();
-    //this.newItems.add(this.newitem= new Item(this.game,300,100,'heart'));
-    
-    // Finally add player (over everything else)
+    // Player
     this.player = new Player(this.game);
 
+    // Enemies
+    this.enemies = this.game.add.group();
+    this.enemies.add(new Enemy(this.game, this.player));
+
+    //this.newItems = this.game.add.group();
+    //this.newItems.add(this.newitem = new Item(this.game,300,100,'heart'));
+    
     // CAMERA
     this.game.camera.follow(this.player);
-    this.game.camera.checkWorldBounds=true;
+    this.game.camera.checkWorldBounds = true;
 };
 
 GameState.prototype.update = function() {
+    //collide(object1, object2, collideCallback, processCallback, callbackContext)
+
     this.game.physics.arcade.collide(this.enemies, this.level.blockedLayer);
-    this.game.physics.arcade.collide(this.enemies, this.player);//, this.player.damageHit, null, this); // TODO: Investigar que hace el parametro que esta en null
-    //this.game.physics.arcade.collide(this.player, this.platforms);
+    this.game.physics.arcade.collide(this.enemies, this.player);
     this.game.physics.arcade.collide(this.player, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
-
 };
 
 GameState.prototype.goFullScreen = function() {

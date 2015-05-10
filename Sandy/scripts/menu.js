@@ -67,7 +67,7 @@ BasicGame.Menu.prototype = {
     },
 
     update: function() {
-    this.move(this.cursors, this.buttons);
+        this.move(this.cursors, this.buttons);
     },
 
     move: function (cursors, buttons) {

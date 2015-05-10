@@ -25,9 +25,9 @@ var Level = function(game)
 };
 
 Level.prototype = Object.create(Phaser.Tilemap.prototype);
-Level.prototype.constructor= Level;
+Level.prototype.constructor = Level;
 
-Level.prototype.createItems=function() {
+Level.prototype.createItems = function() {
     //create items
     var item;    
     result = this.findObjectsByType('item', this, 'objectLayer');
@@ -47,7 +47,7 @@ Level.prototype.findObjectsByType = function(type, map, layer) {
     return result;
 };
 
-Level.prototype.createFromTiledObject= function(element, group) {
+Level.prototype.createFromTiledObject = function(element, group) {
     //var sprite = group.create(new Item(this.game,element.x, element.y, element.properties.sprite));
        var sprite=group.add(new Item(this.game,element.x, element.y, element.properties.sprite));
 
@@ -55,4 +55,4 @@ Level.prototype.createFromTiledObject= function(element, group) {
       Object.keys(element.properties).forEach(function(key){
         sprite[key] = element.properties[key];
       });
-  };
+};
