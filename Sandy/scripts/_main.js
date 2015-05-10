@@ -16,13 +16,16 @@ GameState.prototype.create = function() {
     // Enemies
     this.enemies = this.game.add.group();
     this.enemies.add(new Enemy(this.game));
+
+    //this.newItems= this.game.add.group();
+    //this.newItems.add(this.newitem= new Item(this.game,300,100,'heart'));
     
     // Finally add player (over everything else)
     this.player = new Player(this.game);
 
     // CAMERA
-    this.game.world.setBounds(0, 0, 3000, GAME_HEIGHT);
     this.game.camera.follow(this.player);
+    this.game.camera.checkWorldBounds=true;
 };
 
 GameState.prototype.update = function() {
@@ -30,6 +33,7 @@ GameState.prototype.update = function() {
     this.game.physics.arcade.collide(this.enemies, this.player);//, this.player.damageHit, null, this); // TODO: Investigar que hace el parametro que esta en null
     //this.game.physics.arcade.collide(this.player, this.platforms);
     this.game.physics.arcade.collide(this.player, this.level.blockedLayer);
+    this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
 
 };
 

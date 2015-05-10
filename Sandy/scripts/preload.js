@@ -19,6 +19,8 @@ BasicGame.Preload.prototype = {
         // IMAGES
         this.game.load.image('sky', 'images/sky.png');
         this.game.load.image('ground', 'images/ground.png');
+        //this.game.load.spritesheet('heart','images/heartsheet.png',41,35);
+        this.game.load.spritesheet('heart','images/heartsheet2.png',123,106);
         //this.game.load.image('ocean', 'images/ocean.png');
         this.game.load.spritesheet('player', 'images/player.png', 32, 48);
         // ENEMIES

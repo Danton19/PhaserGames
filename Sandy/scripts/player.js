@@ -6,7 +6,7 @@ var Player = function(game) {
     // VARIABLES
     this.life = 100;
 
-    Phaser.Sprite.call(this, game, 300, 0, 'player');
+    Phaser.Sprite.call(this, game, 300, 300, 'player');
     this.anchor.setTo(0.5, 0.5);
     this.game.physics.arcade.enableBody(this);
     this.body.bounce.y = 0.0;

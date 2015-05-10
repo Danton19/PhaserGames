@@ -17,9 +17,42 @@ var Level = function(game)
     this.setCollisionBetween(1, 1300, true, 'blockLayer');
 
     //resizes the game world to match the layer dimensions....dont know why JAJA
-    this.backgroundlayer.resizeWorld();
+    this.backgroundlayer.resizeWorld();  
+    this.items = this.game.add.group();
+    this.items.enableBody = true;
+    this.createItems();
 
 };
 
 Level.prototype = Object.create(Phaser.Tilemap.prototype);
 Level.prototype.constructor= Level;
+
+Level.prototype.createItems=function() {
+    //create items
+    var item;    
+    result = this.findObjectsByType('item', this, 'objectLayer');
+    result.forEach(function(element){
+      this.createFromTiledObject(element, this.items);
+    }, this);
+};
+
+Level.prototype.findObjectsByType = function(type, map, layer) {
+    var result = new Array();
+    map.objects[layer].forEach(function(element){
+      if(element.type === type) {
+        element.y -= map.tileHeight;
+        result.push(element);
+      }      
+    });
+    return result;
+};
+
+Level.prototype.createFromTiledObject= function(element, group) {
+    //var sprite = group.create(new Item(this.game,element.x, element.y, element.properties.sprite));
+       var sprite=group.add(new Item(this.game,element.x, element.y, element.properties.sprite));
+
+      //copy all properties to the sprite
+      Object.keys(element.properties).forEach(function(key){
+        sprite[key] = element.properties[key];
+      });
+  };
