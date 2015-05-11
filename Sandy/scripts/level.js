@@ -20,19 +20,24 @@ var Level = function(game)
     this.backgroundlayer.resizeWorld();  
     this.items = this.game.add.group();
     this.items.enableBody = true;
-    this.createItems();
+    this.enemies = this.game.add.group();
+    this.enemies.enableBody = true;
+    this.playerPos=this.findObjectsByType('player',this, 'objectLayer');
+    this.player=new Player(this.game,this.playerPos[0].x,this.playerPos[0].y,this.playerPos[0].properties.sprite);
+    this.createObjects('item',this.items);
+    this.createObjects('enemy',this.enemies);
 
 };
 
 Level.prototype = Object.create(Phaser.Tilemap.prototype);
 Level.prototype.constructor = Level;
 
-Level.prototype.createItems = function() {
+Level.prototype.createObjects = function(type,group) {
     //create items
     var item;    
-    result = this.findObjectsByType('item', this, 'objectLayer');
+    result = this.findObjectsByType(type, this, 'objectLayer');
     result.forEach(function(element){
-      this.createFromTiledObject(element, this.items);
+      this.createFromTiledObject(element, group);
     }, this);
 };
 
@@ -48,8 +53,11 @@ Level.prototype.findObjectsByType = function(type, map, layer) {
 };
 
 Level.prototype.createFromTiledObject = function(element, group) {
-    //var sprite = group.create(new Item(this.game,element.x, element.y, element.properties.sprite));
-       var sprite=group.add(new Item(this.game,element.x, element.y, element.properties.sprite));
+    var sprite
+    if(group==this.items)
+       sprite=group.add(new Item(this.game,element.x, element.y, element.properties.sprite));
+    else
+        sprite=group.add(new Enemy(this.game,this.player,element.x, element.y, element.properties.sprite));
 
       //copy all properties to the sprite
       Object.keys(element.properties).forEach(function(key){

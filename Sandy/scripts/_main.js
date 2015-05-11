@@ -12,28 +12,19 @@ GameState.prototype.create = function() {
     this.game.physics.startSystem(Phaser.Physics.ARCADE); 
     // Level creation
     this.level = new Level(this.game);
-    
     // Player
-    this.player = new Player(this.game);
-
-    // Enemies
-    this.enemies = this.game.add.group();
-    this.enemies.add(new Enemy(this.game, this.player));
-
-    //this.newItems = this.game.add.group();
-    //this.newItems.add(this.newitem = new Item(this.game,300,100,'heart'));
-    
+    //this.player = new Player(this.game);
     // CAMERA
-    this.game.camera.follow(this.player);
+    this.game.camera.follow(this.level.player);
     this.game.camera.checkWorldBounds = true;
 };
 
 GameState.prototype.update = function() {
     //collide(object1, object2, collideCallback, processCallback, callbackContext)
 
-    this.game.physics.arcade.collide(this.enemies, this.level.blockedLayer);
-    this.game.physics.arcade.collide(this.enemies, this.player);
-    this.game.physics.arcade.collide(this.player, this.level.blockedLayer);
+    this.game.physics.arcade.collide(this.level.enemies, this.level.blockedLayer);
+    this.game.physics.arcade.collide(this.level.enemies, this.level.player);
+    this.game.physics.arcade.collide(this.level.player, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
 };
 

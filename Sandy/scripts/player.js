@@ -1,4 +1,4 @@
-var Player = function(game) {
+var Player = function(game,x,y,sprite) {
     // CONSTANTS
     this.X_VELOCITY = 150;
     this.JUMP_VELOCITY = 500;
@@ -6,7 +6,7 @@ var Player = function(game) {
     // VARIABLES
     this.life = 100;
 
-    Phaser.Sprite.call(this, game, 300, 300, 'player');
+    Phaser.Sprite.call(this, game, x, y, sprite);
     this.anchor.setTo(0.5, 0.5);
     this.game.physics.arcade.enableBody(this);
     this.body.bounce.y = 0.0;

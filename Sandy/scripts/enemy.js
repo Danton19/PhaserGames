@@ -1,4 +1,4 @@
-var Enemy = function(game, player) {
+var Enemy = function(game, player,x,y,sprite) {
     // CONSTANTS
     this.VELOCITY = 100;
     this.JUMP_VELOCITY = 400;
@@ -18,7 +18,7 @@ var Enemy = function(game, player) {
     // hack for accessing player class
     this.player = player;
 
-    Phaser.Sprite.call(this, game, 600, 300, 'darkEnemy');
+    Phaser.Sprite.call(this, game, x, y, sprite);
     this.anchor.setTo(0.5, 0.5);
     this.game.physics.arcade.enableBody(this);
     this.body.bounce.y = 0.0;

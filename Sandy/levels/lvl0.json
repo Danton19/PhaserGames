@@ -31,17 +31,17 @@
                  "gid":1871,
                  "height":0,
                  "id":3,
-                 "name":"playerStartPos",
+                 "name":"player",
                  "properties":
                     {
-                     "sprite":"dude"
+                     "sprite":"player"
                     },
                  "rotation":0,
-                 "type":"point",
+                 "type":"player",
                  "visible":true,
                  "width":0,
-                 "x":48,
-                 "y":456
+                 "x":24,
+                 "y":469
                 }, 
                 {
                  "gid":1876,
@@ -56,8 +56,8 @@
                  "type":"item",
                  "visible":true,
                  "width":0,
-                 "x":474,
-                 "y":187
+                 "x":375,
+                 "y":181
                 }, 
                 {
                  "gid":1876,
@@ -88,8 +88,56 @@
                  "type":"item",
                  "visible":true,
                  "width":0,
-                 "x":1249,
-                 "y":285
+                 "x":1347,
+                 "y":292
+                }, 
+                {
+                 "gid":1881,
+                 "height":0,
+                 "id":10,
+                 "name":"darkEnemy",
+                 "properties":
+                    {
+                     "sprite":"darkEnemy"
+                    },
+                 "rotation":0,
+                 "type":"enemy",
+                 "visible":true,
+                 "width":0,
+                 "x":1033,
+                 "y":562
+                }, 
+                {
+                 "gid":1881,
+                 "height":0,
+                 "id":13,
+                 "name":"darkEnemy",
+                 "properties":
+                    {
+                     "sprite":"darkEnemy"
+                    },
+                 "rotation":0,
+                 "type":"enemy",
+                 "visible":true,
+                 "width":0,
+                 "x":660,
+                 "y":293
+                }, 
+                {
+                 "gid":1881,
+                 "height":0,
+                 "id":14,
+                 "name":"darkEnemy",
+                 "properties":
+                    {
+                     "sprite":"darkEnemy"
+                    },
+                 "rotation":0,
+                 "type":"enemy",
+                 "visible":true,
+                 "width":0,
+                 "x":1564,
+                 "y":376
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -98,7 +146,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":10,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "properties":
     {
@@ -159,6 +207,21 @@
          "imagewidth":32,
          "margin":0,
          "name":"firstaid",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "firstgid":1877,
+         "image":"..\/images\/enemies\/dark_enemy.png",
+         "imageheight":96,
+         "imagewidth":288,
+         "margin":0,
+         "name":"dark_enemy",
          "properties":
             {
 
