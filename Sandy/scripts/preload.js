@@ -13,6 +13,9 @@ BasicGame.Preload.prototype = {
         this.asset.anchor.setTo(0.5, 0.5);
         this.load.setPreloadSprite(this.asset);
 
+        //  Load the Google WebFont Loader script
+        this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+
         //LEVEL TEST
         this.load.tilemap('level0', 'levels/lvl0.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('dirt', 'images/plainDirt0.png');
@@ -21,7 +24,6 @@ BasicGame.Preload.prototype = {
         this.game.load.image('ground', 'images/ground.png');
         //this.game.load.spritesheet('heart','images/heartsheet.png',41,35);
         this.game.load.spritesheet('heart','images/heartsheet2.png',123,106);
-        //this.game.load.image('ocean', 'images/ocean.png');
         this.game.load.spritesheet('player', 'images/player.png', 32, 48);
         // ENEMIES
         this.game.load.spritesheet('darkEnemy','images/enemies/dark_enemy.png', 32, 48);
