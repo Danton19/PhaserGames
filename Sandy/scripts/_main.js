@@ -9,7 +9,7 @@ GameState.prototype.create = function() {
     var GAME_WIDTH = this.game.width;
     var GAME_HEIGHT = this.game.height;
 
-    // this.goFullScreen();
+    this.goFullScreen();
     
     this.game.physics.startSystem(Phaser.Physics.ARCADE); 
 
