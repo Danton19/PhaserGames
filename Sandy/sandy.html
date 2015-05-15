@@ -14,6 +14,7 @@
     <script src="scripts/_main.js"></script>
     <script src="scripts/enemy.js"></script>
     <script src="scripts/item.js"></script>
+    <script src="scripts/hud.js"></script>
     
     <style type="text/css">
         body {
@@ -29,8 +30,8 @@
     
     window.onload = function() {
         
-        var firstWidth = 600;
-        var firstHeight = 300;
+        var firstWidth = window.innerWidth * window.devicePixelRatio / 2;
+        var firstHeight = window.innerHeight * window.devicePixelRatio / 2;
 
         var game = new Phaser.Game(firstWidth, firstHeight, Phaser.AUTO,
                                    'gameContainer', null, false, false);

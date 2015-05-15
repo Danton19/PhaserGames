@@ -20,8 +20,8 @@ GameState.prototype.create = function() {
     this.game.camera.follow(this.level.player);
     this.game.camera.checkWorldBounds = true;
 
-    // HUD // TODO: Move all hud logic to separate class
-    this.createHUD();
+    // HUD
+    this.hud = new HUD(this.game, this.level.player);
 };
 
 GameState.prototype.update = function() {
@@ -32,30 +32,20 @@ GameState.prototype.update = function() {
     this.game.physics.arcade.collide(this.level.player, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
 
-    this.updateHUD();
+    // TODO: Fix the automatic update, so we don't have to call it manually here
+    this.hud.update();
 };
 
 GameState.prototype.goFullScreen = function() {
     this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.game.scale.forceLandscape = true;
     this.game.scale.pageAlignHorizontally = true;
+    this.game.scale.pageAlignVertically = true;
+    this.game.scale.setMaximum();
     this.game.scale.setScreenSize(true);
+    this.game.scale.refresh();
 };
 
 GameState.prototype.reStart = function() {
     this.create();
 };
-
-GameState.prototype.createHUD = function() {
-    lifeText = this.game.add.text(this.level.player.x, this.level.player.y, "Life: ");
-    lifeText.font = 'Press Start 2P';
-    lifeText.fontSize = 30;
-    lifeText.fill = 'white';
-    lifeText.strokeThickness = 2;
-}
-
-GameState.prototype.updateHUD = function() {
-    lifeText.setText('Life: ' + this.level.player.life);
-    lifeText.x = this.game.camera.x + 10;
-    lifeText.y = this.game.camera.y + 10;
-}
