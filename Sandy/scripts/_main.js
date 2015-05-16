@@ -26,9 +26,13 @@ GameState.prototype.create = function() {
 
 GameState.prototype.update = function() {
     //collide(object1, object2, collideCallback, processCallback, callbackContext)
-    this.game.physics.arcade.collide(this.level.enemies, this.level.blockedLayer);
+    
     this.game.physics.arcade.collide(this.level.enemies, this.level.player);
     this.game.physics.arcade.collide(this.level.enemies, this.level.enemies);
+    this.game.physics.arcade.overlap(this.level.player, this.level.items, this.level.player.getItem);
+    
+    // COLLISIONS WITH LAYERS
+    this.game.physics.arcade.collide(this.level.enemies, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.player, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
 

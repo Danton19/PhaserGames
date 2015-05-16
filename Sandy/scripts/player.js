@@ -86,3 +86,8 @@ Player.prototype.standStill = function() {
 Player.prototype.run = function() {
     this.body.velocity.x *= 2;
 }
+
+Player.prototype.getItem = function(player, item) {
+    player.life += item.lifeToHeal;
+    item.destroy();
+}
