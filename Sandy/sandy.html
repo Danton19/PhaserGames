@@ -33,7 +33,7 @@
         var firstWidth = window.innerWidth * window.devicePixelRatio / 2;
         var firstHeight = window.innerHeight * window.devicePixelRatio / 2;
 
-        var game = new Phaser.Game(firstWidth, firstHeight, Phaser.AUTO,
+        var game = new Phaser.Game(firstWidth, firstHeight, Phaser.CANVAS,
                                    'gameContainer', null, false, false);
         
         game.state.add('boot', BasicGame.Boot);

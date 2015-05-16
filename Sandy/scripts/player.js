@@ -14,8 +14,11 @@ var Player = function(game,x,y,sprite) {
     this.body.collideWorldBounds = false;
     
     // Our two animations, walking left and right.
-    this.animations.add('left', [0, 1, 2, 3], 10, true);
-    this.animations.add('right', [5, 6, 7, 8], 10, true);
+   /* this.animations.add('left', [0, 1, 2, 3], 10, true);
+    this.animations.add('right', [5, 6, 7, 8], 10, true);*/
+    this.animations.add('left', [7, 6, 5, 6], 10, true);
+    this.animations.add('right', [0, 1, 2, 1], 10, true);
+    this.scale.setTo(2,2);
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -76,7 +79,8 @@ Player.prototype.moveRight = function() {
 
 Player.prototype.standStill = function() {
     this.animations.stop();
-    this.frame = 4;
+    //this.frame = 4;
+    this.frame = 3;
 }
 
 Player.prototype.run = function() {
