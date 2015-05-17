@@ -91,3 +91,7 @@ Player.prototype.getItem = function(player, item) {
     player.life += item.lifeToHeal;
     item.destroy();
 }
+
+Player.prototype.receiveHit = function(damage) {
+    this.life -= damage;
+}

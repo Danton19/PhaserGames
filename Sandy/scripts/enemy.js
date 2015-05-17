@@ -6,6 +6,8 @@ var Enemy = function(game, player,x,y,sprite) {
     this.DISTANCE_TO_FOLLOW_PLAYER = 150;
     this.DISTANCE_TO_ATTACK_PLAYER = 40;
     this.NEXT_STATE_TIMELAPSE = 800;
+    this.ATTACK_DAMAGE = 25;
+    this.ATTACK_RATE = 500;
 
     // VARIABLES
     this.life = 100;
@@ -14,6 +16,7 @@ var Enemy = function(game, player,x,y,sprite) {
     this.currentStateCounter = 0;
     this.nextStateTime = 0;
     this.previousXPosition = 0;
+    this.nextAttack = 0;
 
     // hack for accessing player class
     this.player = player;
@@ -127,9 +130,16 @@ Enemy.prototype.isCloseEnoughToAttack = function() {
 };
 
 Enemy.prototype.attack = function() {
-    if (this.x < this.player.x) {
-        this.animations.play("attackToRight");
-    } else {
-        this.animations.play("attackToLeft");
+    if (this.game.time.now > this.nextAttack)
+    {
+        if (this.x < this.player.x) {
+            this.animations.play("attackToRight");
+        } else {
+            this.animations.play("attackToLeft");
+        }
+
+        this.player.receiveHit(this.ATTACK_DAMAGE);
+
+        this.nextAttack = this.game.time.now + this.ATTACK_RATE;
     }
 };
