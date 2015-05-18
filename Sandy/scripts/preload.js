@@ -18,7 +18,9 @@ BasicGame.Preload.prototype = {
 
         //LEVEL TEST
         this.load.tilemap('level0', 'levels/lvl0.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.tilemap('level1', 'levels/lvl1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('dirt', 'images/plainDirt0.png');
+        this.game.load.image('sandFloorSheet', 'images/sandFloorSheet.png');
         // IMAGES
         this.game.load.image('sky', 'images/sky.png');
         this.game.load.image('ground', 'images/ground.png');

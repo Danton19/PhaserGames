@@ -1,7 +1,7 @@
 var Player = function(game,x,y,sprite) {
     // CONSTANTS
     this.X_VELOCITY = 150;
-    this.JUMP_VELOCITY = 500;
+    this.JUMP_VELOCITY = 600;
 
     // VARIABLES
     this.life = 100;
