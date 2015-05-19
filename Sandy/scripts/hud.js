@@ -11,7 +11,7 @@ var HUD = function(game, player) {
     this.healthbarFrame=this.game.add.sprite(this.player.x, this.player.y,'healthBarBG');
     this.healthbarFrame.width=104;
     this.healthbar = this.game.add.sprite(this.player.x, this.player.y,'healthBar');
-    this.healthbar.cropEnabled = true;
+    this.healthbar.width = this.player.life;  
 
 };
 
@@ -19,7 +19,12 @@ HUD.prototype = Object.create(Phaser.Text.prototype);
 HUD.prototype.constructor = HUD;
 
 HUD.prototype.update = function() {
-    this.healthbar.width = this.player.life;
+    //tweens
+    if(!isTweening(this.healthbarEffects.))
+    {
+        this.healthbarEffects=this.game.add.tween(this.healthbar).to({width:this.player.life}, 300, Phaser.Easing.Elastic.None);
+        this.healthbarEffects.start();
+    }
     this.lifeText.x = this.game.camera.x + 10;
     this.lifeText.y = this.game.camera.y + 10;
     this.healthbar.x = this.game.camera.x + 90;

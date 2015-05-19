@@ -7,7 +7,7 @@ var Enemy = function(game, player,x,y,sprite) {
     this.DISTANCE_TO_ATTACK_PLAYER = 40;
     this.NEXT_STATE_TIMELAPSE = 800;
     this.ATTACK_DAMAGE = 25;
-    this.ATTACK_RATE = 500;
+    this.ATTACK_RATE = 1000;
 
     // VARIABLES
     this.life = 100;
