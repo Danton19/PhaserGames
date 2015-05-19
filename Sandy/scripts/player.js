@@ -2,9 +2,12 @@ var Player = function(game,x,y,sprite) {
     // CONSTANTS
     this.X_VELOCITY = 150;
     this.JUMP_VELOCITY = 600;
+    this.FIRE_RATE = 300;
 
     // VARIABLES
     this.life = 100;
+    this.nextFire = 0;
+    this.facing = "right";
 
     Phaser.Sprite.call(this, game, x, y, sprite);
     this.anchor.setTo(0.5, 0.5);
@@ -22,6 +25,14 @@ var Player = function(game,x,y,sprite) {
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
+    //bullets group
+    this.bullets = this.game.add.group();
+    this.bullets.enableBody = true;
+    this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
+    this.bullets.createMultiple(50, 'bullet');
+    this.bullets.setAll('checkWorldBounds', true);
+    this.bullets.setAll('outOfBoundsKill', true);
+
     this.game.add.existing(this);
 };
 
@@ -38,6 +49,7 @@ Player.prototype.handleKeys = function () {
     var leftKeyPressed = this.cursors.left.isDown;
     var rightKeyPressed = this.cursors.right.isDown;
     var shiftKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT);
+    var ctrlKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.CONTROL);
 
     // Reset the players velocity (movement)
     this.body.velocity.x = 0;
@@ -57,6 +69,10 @@ Player.prototype.handleKeys = function () {
     if (shiftKeyPressed) {
         this.run();
     }
+
+    if (ctrlKeyPressed) {
+        this.shoot();
+    }
 };
 
 Player.prototype.jump = function() {
@@ -70,17 +86,20 @@ Player.prototype.jump = function() {
 Player.prototype.moveLeft = function() {
     this.body.velocity.x = -this.X_VELOCITY;
     this.animations.play('left');
+    this.facing = "left";
 }
 
 Player.prototype.moveRight = function() {
     this.body.velocity.x = this.X_VELOCITY;
     this.animations.play('right');
+    this.facing = "right";
 }
 
 Player.prototype.standStill = function() {
     this.animations.stop();
     //this.frame = 4;
     this.frame = 3;
+    this.facing = "right";
 }
 
 Player.prototype.run = function() {
@@ -94,4 +113,19 @@ Player.prototype.getItem = function(player, item) {
 
 Player.prototype.receiveHit = function(damage) {
     this.life -= damage;
+}
+
+Player.prototype.shoot = function() {
+    if (this.game.time.now > this.nextFire && this.bullets.countDead() > 0)
+    {
+        this.nextFire = this.game.time.now + this.FIRE_RATE;
+
+        var bullet = this.bullets.getFirstDead();
+
+        bullet.reset(this.x, this.y);
+
+        var bulletXTarget = this.facing === 'right' ? this.x + 1 : this.x - 1;
+
+        this.game.physics.arcade.moveToXY(bullet, bulletXTarget, this.y, 500);
+    }
 }
