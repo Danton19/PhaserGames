@@ -97,9 +97,11 @@ Player.prototype.moveRight = function() {
 
 Player.prototype.standStill = function() {
     this.animations.stop();
-    //this.frame = 4;
-    this.frame = 3;
-    this.facing = "right";
+    if (this.facing === "right") {
+        this.frame = 3;
+    } else {
+        this.frame = 4;
+    }
 }
 
 Player.prototype.run = function() {
