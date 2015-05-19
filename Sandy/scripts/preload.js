@@ -16,7 +16,7 @@ BasicGame.Preload.prototype = {
         //  Load the Google WebFont Loader script
         this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 
-        //LEVEL TEST
+        //LEVEL 1
         this.load.tilemap('level0', 'levels/lvl0.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.tilemap('level1', 'levels/lvl1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('dirt', 'images/plainDirt0.png');
@@ -38,7 +38,11 @@ BasicGame.Preload.prototype = {
         this.game.load.image('menu_button1', 'images/menu/menu_button.png');
         this.game.load.image('menu_button2', 'images/menu/menu_button2.png');
         this.game.load.image('menu_button3', 'images/menu/menu_button3.png');
-        
+
+        //HUD
+        //healthBar
+        this.game.load.image('healthBar', 'images/healthBar.png');
+        this.game.load.image('healthBarBG', 'images/healthBarBG.png');
         // AUDIO
     },
     
