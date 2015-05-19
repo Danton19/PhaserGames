@@ -20,9 +20,9 @@ HUD.prototype.constructor = HUD;
 
 HUD.prototype.update = function() {
     //tweens
-    if(!isTweening(this.healthbarEffects.))
+    // if(!isTweening(this.healthbarEffects.))
     {
-        this.healthbarEffects=this.game.add.tween(this.healthbar).to({width:this.player.life}, 300, Phaser.Easing.Elastic.None);
+        this.healthbarEffects = this.game.add.tween(this.healthbar).to({width:this.player.life}, 300, Phaser.Easing.Elastic.None);
         this.healthbarEffects.start();
     }
     this.lifeText.x = this.game.camera.x + 10;
