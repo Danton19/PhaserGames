@@ -35,6 +35,7 @@ GameState.prototype.update = function() {
     // COLLISIONS WITH LAYERS
     this.game.physics.arcade.collide(this.level.enemies, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.player, this.level.blockedLayer);
+    this.game.physics.arcade.collide(this.level.player.bullets, this.level.blockedLayer, this.bulletHitsLayer);
     this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
 
     // TODO: Fix the automatic update, so we don't have to call it manually here
@@ -56,8 +57,12 @@ GameState.prototype.reStart = function() {
 };
 
 
-// TODO: See the way to move this to an object
+// TODO: See the way to move this functions to respective objects
 GameState.prototype.bulletHitsEnemy = function(enemy, bullet) {
     enemy.kill();
+    bullet.kill();
+};
+
+GameState.prototype.bulletHitsLayer = function(bullet) {
     bullet.kill();
 };
