@@ -37,9 +37,13 @@ GameState.prototype.update = function() {
     this.game.physics.arcade.collide(this.level.player, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.player.bullets, this.level.blockedLayer, this.bulletHitsLayer);
     this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
+    //overlap
+        //level win trigger
+    this.game.physics.arcade.overlap(this.level.player, this.level.winPoint,this.winLevel,null,this);
 
     // TODO: Fix the automatic update, so we don't have to call it manually here
     this.hud.update();
+
 };
 
 GameState.prototype.goFullScreen = function() {
@@ -65,4 +69,45 @@ GameState.prototype.bulletHitsEnemy = function(enemy, bullet) {
 
 GameState.prototype.bulletHitsLayer = function(bullet) {
     bullet.kill();
+};
+
+//render bodies for testing
+/*GameState.prototype.render=function () {
+
+    this.game.debug.bodyInfo(this.level.player);
+    this.game.debug.bodyInfo(this.level.winPoint);
+
+};*/
+
+GameState.prototype.winLevel=function () {
+    if (this.level.player.body.onFloor() && this.level.player.x>=this.level.winPoint.x+27 && this.level.player.x <= this.level.winPoint.x+30){
+        this.game.input.keyboard.reset();
+        this.game.input.keyboard.enabled=false;
+        this.level.player.body.velocity.x=0;
+        //null door body,function run just once
+        this.level.winPoint.body=null;
+        //animations to finish
+        anim=this.level.winPoint.animations.play('open');
+        anim.onComplete.add(function(){
+
+            this.closeDoor=this.game.add.sprite(this.level.winPointPos[0].x,this.level.winPointPos[0].y,'onlyDoor',2);
+            this.closeDoor.scale.setTo(2,2);
+            this.closeDoor.animations.add('close',[2,1,0],8,false);
+            closeAnim=this.closeDoor.animations.play('close');
+            closeAnim.onComplete.add(function(){
+
+                this.winText=this.game.add.text(150,150,'LEVEL COMPLETE!');
+                this.winText.font = 'Press Start 2P';
+                this.winText.fill = 'white';
+                this.winText.strokeThickness = 2;
+                this.winText.fixedToCamera=true;
+                this.winText.alpha = 0.1;
+                this.game.add.tween(this.winText).to( { alpha: 1 }, 2000, "Linear", true);
+                this.level.player.destroy();
+                this.game.input.keyboard.enabled=true;
+
+            },this);
+
+        }, this);
+    }
 };

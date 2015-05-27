@@ -23,8 +23,16 @@ var Level = function(game)
     this.items.enableBody = true;
     this.enemies = this.game.add.group();
     this.enemies.enableBody = true;
+    //winpointDoor creation
+    this.winPointPos=this.findObjectsByType('point',this, 'objectLayer');
+    this.winPoint=this.game.add.sprite(this.winPointPos[0].x,this.winPointPos[0].y,this.winPointPos[0].properties.sprite,0);
+    this.game.physics.arcade.enableBody(this.winPoint);
+    this.winPoint.scale.setTo(2,2);
+    this.winPoint.animations.add('open', [0, 1, 2], 8, false);
+    //player creation
     this.playerPos=this.findObjectsByType('player',this, 'objectLayer');
     this.player=new Player(this.game,this.playerPos[0].x,this.playerPos[0].y,this.playerPos[0].properties.sprite);
+    //rest of the objects
     this.createObjects('item',this.items);
     this.createObjects('enemy',this.enemies);
 

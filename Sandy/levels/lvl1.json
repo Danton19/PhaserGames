@@ -40,8 +40,8 @@
                  "type":"player",
                  "visible":true,
                  "width":0,
-                 "x":116,
-                 "y":401
+                 "x":9222.06,
+                 "y":2601
                 }, 
                 {
                  "gid":1865,
@@ -298,6 +298,22 @@
                  "width":0,
                  "x":9290,
                  "y":2068
+                }, 
+                {
+                 "gid":1934,
+                 "height":0,
+                 "id":40,
+                 "name":"winPoint",
+                 "properties":
+                    {
+                     "sprite":"door"
+                    },
+                 "rotation":0,
+                 "type":"point",
+                 "visible":true,
+                 "width":0,
+                 "x":9412.5,
+                 "y":2694
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -306,7 +322,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":38,
+ "nextobjectid":41,
  "orientation":"orthogonal",
  "properties":
     {
@@ -444,6 +460,21 @@
                  "terrain":[-1, -1, 0, -1]
                 }
             },
+         "tilewidth":32
+        }, 
+        {
+         "firstgid":1932,
+         "image":"..\/images\/carpa.png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"carpa",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
          "tilewidth":32
         }],
  "tilewidth":32,
