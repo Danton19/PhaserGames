@@ -1,0 +1,57 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Sandy</title>
+    
+    <script src="scripts/phaser/phaser.min.js"></script>
+    <script src="scripts/preload.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/boot.js"></script>
+    <script src="scripts/platform.js"></script>
+    <script src="scripts/player.js"></script>
+    <script src="scripts/level.js"></script>
+    <script src="scripts/_main.js"></script>
+    <script src="scripts/enemy.js"></script>
+    <script src="scripts/item.js"></script>
+    <script src="scripts/hud.js"></script>
+    
+    <style type="text/css">
+        body {
+            margin: 0;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer"></div>
+
+    <script type="text/javascript">
+    
+    window.onload = function() {
+        
+        var firstWidth = window.innerWidth * window.devicePixelRatio / 2;
+        var firstHeight = window.innerHeight * window.devicePixelRatio / 2;
+
+        var game = new Phaser.Game(firstWidth, firstHeight, Phaser.CANVAS,
+                                   'gameContainer', null, false, false);
+        
+        game.state.add('boot', BasicGame.Boot);
+        game.state.add('preload', BasicGame.Preload);
+        game.state.add('menu', BasicGame.Menu);
+        game.state.add('game', GameState);
+        game.state.start('boot');
+
+        //  The Google WebFont Loader will look for this object
+        WebFontConfig = {
+            //  The Google Fonts we want to load (specify as many as you like in the array)
+            google: {
+              families: ['Press Start 2P']
+            }
+        };
+    };
+    
+    </script>
+    
+</body>
+</html>
