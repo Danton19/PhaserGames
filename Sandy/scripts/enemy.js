@@ -4,10 +4,10 @@ var Enemy = function(game, player,x,y,sprite) {
     this.JUMP_VELOCITY = 400;
     this.VELOCITY_WHEN_FOLLOWING = this.VELOCITY * 2;
     this.DISTANCE_TO_FOLLOW_PLAYER = 150;
-    this.DISTANCE_TO_ATTACK_PLAYER = 40;
+    this.DISTANCE_TO_ATTACK_PLAYER = 80;
     this.NEXT_STATE_TIMELAPSE = 800;
     this.ATTACK_DAMAGE = 25;
-    this.ATTACK_RATE = 1000;
+    this.ATTACK_RATE = 1500;
 
     // VARIABLES
     this.life = 100;
@@ -27,11 +27,12 @@ var Enemy = function(game, player,x,y,sprite) {
     this.body.bounce.y = 0.0;
     this.body.gravity.y = 1000;
     this.body.collideWorldBounds = false;
+    this.scale.setTo(2,2);
 
-    this.animations.add('left', [0, 1, 2, 3], 10, true);
-    this.animations.add('right', [5, 6, 7, 8], 10, true);
-    this.animations.add('attackToLeft', [10, 11], 5, true);
-    this.animations.add('attackToRight', [15, 16], 5, true);
+    this.animations.add('left', [0, 1, 2], 10, true);
+    this.animations.add('right', [5, 4, 3], 10, true);
+    this.animations.add('attackToLeft', [6, 7, 8], 10, true);
+    this.animations.add('attackToRight', [11, 10, 9], 10, true);
 
     this.game.add.existing(this);
 };

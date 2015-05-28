@@ -26,6 +26,7 @@ BasicGame.Preload.prototype = {
         // IMAGES
         this.game.load.image('sky', 'images/sky.png');
         this.game.load.image('ground', 'images/ground.png');
+        this.game.load.image('gameOver','images/game-over.png',400,300);
         //this.game.load.spritesheet('heart','images/heartsheet.png',41,35);
         this.game.load.spritesheet('heart','images/heartsheet2.png',123,106);
         //this.game.load.spritesheet('player', 'images/player.png', 32, 48);
@@ -33,6 +34,7 @@ BasicGame.Preload.prototype = {
         this.game.load.image('bullet', 'images/bullet.png');
         // ENEMIES
         this.game.load.spritesheet('darkEnemy','images/enemies/dark_enemy.png', 32, 48);
+        this.game.load.spritesheet('crabAttack','images/crabbyattack2.png', 43, 12);
 
         // MENU
         this.game.load.image('menu_title', 'images/menu/menu_game_title.png');

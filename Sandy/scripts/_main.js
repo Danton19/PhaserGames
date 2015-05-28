@@ -44,6 +44,10 @@ GameState.prototype.update = function() {
     // TODO: Fix the automatic update, so we don't have to call it manually here
     this.hud.update();
 
+    //GameOver
+    if(this.level.player.life<=0)
+        this.gameOver();
+
 };
 
 GameState.prototype.goFullScreen = function() {
@@ -78,6 +82,15 @@ GameState.prototype.bulletHitsLayer = function(bullet) {
     this.game.debug.bodyInfo(this.level.winPoint);
 
 };*/
+GameState.prototype.gameOver= function(){
+
+    this.level.player.destroy(true);
+    this.gameOverImg=this.game.add.image(150,50,'gameOver');
+    this.gameOverImg.fixedToCamera=true;
+    this.gameOverImg.alpha = 0;
+    this.game.add.tween(this.gameOverImg).to( { alpha: 1 }, 14000, "Linear", true);
+
+};
 
 GameState.prototype.winLevel=function () {
     if (this.level.player.body.onFloor() && this.level.player.x>=this.level.winPoint.x+27 && this.level.player.x <= this.level.winPoint.x+30){
