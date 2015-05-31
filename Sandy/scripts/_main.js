@@ -27,8 +27,8 @@ GameState.prototype.create = function() {
 GameState.prototype.update = function() {
     //collide(object1, object2, collideCallback, processCallback, callbackContext)
     
-    this.game.physics.arcade.collide(this.level.enemies, this.level.player);
     this.game.physics.arcade.collide(this.level.enemies, this.level.player.bullets, this.bulletHitsEnemy);
+    this.game.physics.arcade.collide(this.level.enemies, this.level.player);
     this.game.physics.arcade.collide(this.level.enemies, this.level.enemies);
     this.game.physics.arcade.overlap(this.level.player, this.level.items, this.level.player.getItem);
     
@@ -107,7 +107,7 @@ GameState.prototype.winLevel=function () {
             closeAnim=this.closeDoor.animations.play('close');
             closeAnim.onComplete.add(function(){
 
-                this.winText=this.game.add.text(150,150,'LEVEL COMPLETE!');
+                this.winText=this.game.add.text(150,150,'CONGRATULATIONS!');
                 this.winText.font = 'Press Start 2P';
                 this.winText.fill = 'white';
                 this.winText.strokeThickness = 2;
