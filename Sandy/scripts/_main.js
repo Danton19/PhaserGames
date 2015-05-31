@@ -45,8 +45,9 @@ GameState.prototype.update = function() {
     this.hud.update();
 
     //GameOver
-    if(this.level.player.life <= 0)
+    if(this.level.player.life <= 0) {
         this.gameOver();
+    }
 
 };
 
@@ -84,13 +85,38 @@ GameState.prototype.bulletHitsLayer = function(bullet) {
 };*/
 GameState.prototype.gameOver= function(){
     this.level.player.destroy(true);
-    this.gameOverImg = this.game.add.image(150,50,'gameOver');
+
+    this.camCenterX = this.game.camera.width / 2;
+    this.camCenterY = this.game.camera.height / 2;
+    
+    this.gameOverImg = this.game.add.image(this.camCenterX, this.camCenterY,'gameOver');
+    this.gameOverImg.anchor.setTo(0.5, 0.5);
     this.gameOverImg.fixedToCamera = true;
     this.gameOverImg.alpha = 0;
     this.game.add.tween(this.gameOverImg).to( { alpha: 1 }, 14000, "Linear", true);
+
+    this.restartText = this.game.add.text(this.camCenterX, this.camCenterY + 200, 'Press enter to restart');
+    this.restartText.anchor.setTo(0.5, 0.5);
+    this.restartText.fixedToCamera = true;
+    this.restartText.font = 'Press Start 2P';
+    this.restartText.fill = 'white';
+    this.restartText.strokeThickness = 2;
+    this.restartText.alpha = 0.1;
+    this.game.add.tween(this.restartText).to( { alpha: 1 }, 30000, "Linear", true);
+    this.level.player.destroy();
+    this.game.input.keyboard.enabled = true;
+
+    this.checkForRestart();
 };
 
-GameState.prototype.winLevel=function () {
+GameState.prototype.checkForRestart = function () {
+    var enterKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.ENTER);
+    if (enterKeyPressed) {
+        this.create();
+    };
+};
+
+GameState.prototype.winLevel = function () {
     if (this.level.player.body.onFloor() && this.level.player.x>=this.level.winPoint.x+27 && this.level.player.x <= this.level.winPoint.x+30){
         this.game.input.keyboard.reset();
         this.game.input.keyboard.enabled=false;
