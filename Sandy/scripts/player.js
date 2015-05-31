@@ -3,9 +3,10 @@ var Player = function(game,x,y,sprite) {
     this.X_VELOCITY = 150;
     this.JUMP_VELOCITY = 600;
     this.FIRE_RATE = 300;
+    this.MAX_LIFE = 100;
 
     // VARIABLES
-    this.life = 100;
+    this.life = this.MAX_LIFE;
     this.nextFire = 0;
     this.facing = "right";
 
@@ -109,7 +110,11 @@ Player.prototype.run = function() {
 }
 
 Player.prototype.getItem = function(player, item) {
-    player.life += item.lifeToHeal;
+    if (player.life + item.lifeToHeal >= player.MAX_LIFE)
+        player.life = 100;
+    else
+        player.life += item.lifeToHeal;
+
     item.destroy();
 }
 

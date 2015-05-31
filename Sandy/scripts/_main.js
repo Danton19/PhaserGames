@@ -67,7 +67,7 @@ GameState.prototype.reStart = function() {
 
 // TODO: See the way to move this functions to respective objects
 GameState.prototype.bulletHitsEnemy = function(enemy, bullet) {
-    enemy.kill();
+    enemy.destroy();
     bullet.kill();
 };
 

@@ -12,7 +12,7 @@ var Item= function(game, x, y, sprite){
     this.animations.add('stay', [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1], 8, true);
     this.animations.play('stay');
 
-    this.lifeToHeal = 25; // This ctually belongs to another more specialized class
+    this.lifeToHeal = 25; // This actually belongs to another more specialized class
 
     this.game.add.existing(this);
 };

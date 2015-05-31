@@ -23,7 +23,15 @@ var HUD = function(game, player) {
 HUD.prototype = Object.create(Phaser.Text.prototype);
 HUD.prototype.constructor = HUD;
 
+HUD.prototype.correctPlayerNegativeLife = function() {
+    if (this.player.life < 0)
+            this.player.life = 0;
+};
+
+
 HUD.prototype.update = function() {
+    this.correctPlayerNegativeLife();
+
     //tweens
     this.healthbarEffects = this.game.add.tween(this.healthbar).to({width:this.player.life}, 300, Phaser.Easing.Elastic.None);
     this.healthbarEffects.start();

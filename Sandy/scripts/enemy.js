@@ -1,4 +1,4 @@
-var Enemy = function(game, player,x,y,sprite) {
+var Enemy = function(game, player, x, y, sprite) {
     // CONSTANTS
     this.VELOCITY = 100;
     this.JUMP_VELOCITY = 400;
@@ -133,14 +133,18 @@ Enemy.prototype.isCloseEnoughToAttack = function() {
 Enemy.prototype.attack = function() {
     if (this.game.time.now > this.nextAttack)
     {
-        if (this.x < this.player.x) {
-            this.animations.play("attackToRight");
+        if (this.player.life > 0) {
+            if (this.x < this.player.x) {
+                this.animations.play("attackToRight");
+            } else {
+                this.animations.play("attackToLeft");
+            }
+
+            this.player.receiveHit(this.ATTACK_DAMAGE);
+
+            this.nextAttack = this.game.time.now + this.ATTACK_RATE;
         } else {
-            this.animations.play("attackToLeft");
+            this.animations.stop();
         }
-
-        this.player.receiveHit(this.ATTACK_DAMAGE);
-
-        this.nextAttack = this.game.time.now + this.ATTACK_RATE;
     }
 };
