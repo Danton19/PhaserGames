@@ -25,11 +25,11 @@ BasicGame.Menu.prototype = {
     this.button1.anchor.setTo(0.5, 0.5);
     this.buttons.add(this.button1);
 
-    this.button2 = this.addButton(2, this.playState);
+    this.button2 = this.addButton(2, this.howToState);
     this.button2.anchor.setTo(0.5, 0.5);
     this.buttons.add(this.button2);
 
-    this.button3 = this.addButton(3, this.playState);
+    this.button3 = this.addButton(3, this.creditsState);
     this.button3.anchor.setTo(0.5, 0.5);
     this.buttons.add(this.button3);
 
@@ -60,8 +60,7 @@ BasicGame.Menu.prototype = {
         .start();
 
 
-        this.gameTitle = this.game.add.image(this.game.world.centerX,
-        this.game.world.centerY - 200, 'menu_title');
+        this.gameTitle = this.game.add.image(this.game.world.centerX, this.game.world.centerY - 180, 'menu_title');
         this.gameTitle.anchor.setTo(0.5, 0.5);
         this.cursors = this.game.input.keyboard.createCursorKeys();
     },
@@ -136,10 +135,10 @@ BasicGame.Menu.prototype = {
     },
 
     howToState: function () {
-        this.game.state.start('game'); //TODO
+        this.game.state.start('how');
     },
 
     creditsState: function () {
-        this.game.state.start('game'); //TODO
+        this.game.state.start('credits');
     },
 };

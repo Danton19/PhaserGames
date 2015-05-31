@@ -37,15 +37,15 @@ GameState.prototype.update = function() {
     this.game.physics.arcade.collide(this.level.player, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.player.bullets, this.level.blockedLayer, this.bulletHitsLayer);
     this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
-    //overlap
-        //level win trigger
+    
+    //level win trigger
     this.game.physics.arcade.overlap(this.level.player, this.level.winPoint,this.winLevel,null,this);
 
     // TODO: Fix the automatic update, so we don't have to call it manually here
     this.hud.update();
 
     //GameOver
-    if(this.level.player.life<=0)
+    if(this.level.player.life <= 0)
         this.gameOver();
 
 };
@@ -83,13 +83,11 @@ GameState.prototype.bulletHitsLayer = function(bullet) {
 
 };*/
 GameState.prototype.gameOver= function(){
-
     this.level.player.destroy(true);
-    this.gameOverImg=this.game.add.image(150,50,'gameOver');
-    this.gameOverImg.fixedToCamera=true;
+    this.gameOverImg = this.game.add.image(150,50,'gameOver');
+    this.gameOverImg.fixedToCamera = true;
     this.gameOverImg.alpha = 0;
     this.game.add.tween(this.gameOverImg).to( { alpha: 1 }, 14000, "Linear", true);
-
 };
 
 GameState.prototype.winLevel=function () {

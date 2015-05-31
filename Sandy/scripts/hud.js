@@ -7,17 +7,14 @@ var HUD = function(game, player) {
     this.lifeText.fontSize = 18;
     this.lifeText.fill = 'white';
     this.lifeText.strokeThickness = 2;
-    this.lifeText.fixedToCamera=true;
+    this.lifeText.fixedToCamera = true;
 
-    this.healthbarFrame=this.game.add.sprite(88, 10,'healthBarBG');
-    this.healthbarFrame.fixedToCamera=true;
-    this.healthbarFrame.width=104;
+    this.healthbarFrame = this.game.add.sprite(88, 10,'healthBarBG');
+    this.healthbarFrame.fixedToCamera = true;
+    this.healthbarFrame.width = 104;
     this.healthbar = this.game.add.sprite(90, 12,'healthBar');
-    this.healthbar.fixedToCamera=true;
+    this.healthbar.fixedToCamera = true;
     this.healthbar.width = this.player.life;
-
-
-
 };
 
 HUD.prototype = Object.create(Phaser.Text.prototype);

@@ -42,6 +42,12 @@ BasicGame.Preload.prototype = {
         this.game.load.image('menu_button1', 'images/menu/menu_button.png');
         this.game.load.image('menu_button2', 'images/menu/menu_button2.png');
         this.game.load.image('menu_button3', 'images/menu/menu_button3.png');
+        this.game.load.image('menu_back', 'images/menu/menu_back.png');
+        this.game.load.image('menu_shift', 'images/menu/shift.png');
+        this.game.load.image('menu_ctrl', 'images/menu/ctrl.png');
+        this.game.load.image('menu_up', 'images/menu/up.png');
+        this.game.load.image('menu_space', 'images/menu/space.png');
+        this.game.load.image('menu_down', 'images/menu/down.png');
 
         //HUD
         //healthBar
