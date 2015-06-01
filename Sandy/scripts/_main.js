@@ -61,11 +61,6 @@ GameState.prototype.goFullScreen = function() {
     this.game.scale.refresh();
 };
 
-GameState.prototype.reStart = function() {
-    this.create();
-};
-
-
 // TODO: See the way to move this functions to respective objects
 GameState.prototype.bulletHitsEnemy = function(enemy, bullet) {
     enemy.destroy();
@@ -111,8 +106,8 @@ GameState.prototype.gameOver= function(){
 
 GameState.prototype.checkForRestart = function () {
     var enterKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.ENTER);
-    if (enterKeyPressed) {
-        this.create();
+    if (enterKeyPressed) { // RESTART
+        this.game.state.restart();
     };
 };
 
