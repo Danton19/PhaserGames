@@ -9,6 +9,7 @@ var Player = function(game,x,y,sprite) {
     this.life = this.MAX_LIFE;
     this.nextFire = 0;
     this.facing = "right";
+    this.isAlive = true;
 
     Phaser.Sprite.call(this, game, x, y, sprite);
     this.anchor.setTo(0.5, 0.5);
@@ -120,6 +121,8 @@ Player.prototype.run = function() {
 }
 
 Player.prototype.getItem = function(player, item) {
+    powerupSFX.play();
+
     if (player.life + item.lifeToHeal >= player.MAX_LIFE)
         player.life = 100;
     else
@@ -129,6 +132,8 @@ Player.prototype.getItem = function(player, item) {
 }
 
 Player.prototype.receiveHit = function(damage) {
+    receiveHitSFX.play();
+
     this.life -= damage;
 }
 
@@ -137,6 +142,8 @@ Player.prototype.shoot = function() {
 
     if (this.game.time.now > this.nextFire && this.bullets.countDead() > 0)
     {
+        attackSFX.play();
+
         facingShoot = this.facing === 'right' ? 'shootRight' : 'shootLeft';
         this.animations.play(facingShoot);
         

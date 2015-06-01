@@ -1,3 +1,4 @@
+
 var lifeText = null;
 
 var GameState = function(game){};
@@ -8,6 +9,9 @@ GameState.prototype.preload = function() {
 GameState.prototype.create = function() {
     var GAME_WIDTH = this.game.width;
     var GAME_HEIGHT = this.game.height;
+
+    
+    backgroundMusic.play();
 
     this.goFullScreen();
     
@@ -46,9 +50,13 @@ GameState.prototype.update = function() {
 
     //GameOver
     if(this.level.player.life <= 0) {
-        this.gameOver();
-    }
+        if (this.level.player.isAlive)
+            this.gameOver();
+        else
+            this.checkForRestart();
 
+        this.level.player.isAlive = false;
+    }
 };
 
 GameState.prototype.goFullScreen = function() {
@@ -64,6 +72,8 @@ GameState.prototype.goFullScreen = function() {
 // TODO: See the way to move this functions to respective objects
 GameState.prototype.bulletHitsEnemy = function(enemy, bullet) {
     bullet.destroy();
+
+    enemyHitSFX.play();
     enemy.destroy();
 };
 
@@ -78,7 +88,11 @@ GameState.prototype.bulletHitsLayer = function(bullet) {
     //this.game.debug.bodyInfo(this.level.winPoint);
 
 };*/
+
 GameState.prototype.gameOver= function(){
+    backgroundMusic.stop();
+    gameOverSFX.play();
+
     this.level.player.destroy(true);
 
     this.camCenterX = this.game.camera.width / 2;
@@ -88,7 +102,7 @@ GameState.prototype.gameOver= function(){
     this.gameOverImg.anchor.setTo(0.5, 0.5);
     this.gameOverImg.fixedToCamera = true;
     this.gameOverImg.alpha = 0;
-    this.game.add.tween(this.gameOverImg).to( { alpha: 1 }, 14000, "Linear", true);
+    this.game.add.tween(this.gameOverImg).to( { alpha: 1 }, 1000, "Linear", true);
 
     this.restartText = this.game.add.text(this.camCenterX, this.camCenterY + 200, 'Press enter to restart');
     this.restartText.anchor.setTo(0.5, 0.5);
@@ -97,11 +111,9 @@ GameState.prototype.gameOver= function(){
     this.restartText.fill = 'white';
     this.restartText.strokeThickness = 2;
     this.restartText.alpha = 0.1;
-    this.game.add.tween(this.restartText).to( { alpha: 1 }, 30000, "Linear", true);
+    this.game.add.tween(this.restartText).to( { alpha: 1 }, 2000, "Linear", true);
     this.level.player.destroy();
     this.game.input.keyboard.enabled = true;
-
-    this.checkForRestart();
 };
 
 GameState.prototype.checkForRestart = function () {
@@ -113,6 +125,8 @@ GameState.prototype.checkForRestart = function () {
 
 GameState.prototype.winLevel = function () {
     if (this.level.player.body.onFloor() && this.level.player.x>=this.level.winPoint.x+27 && this.level.player.x <= this.level.winPoint.x+30){
+        winSFX.play();
+
         this.game.input.keyboard.reset();
         this.game.input.keyboard.enabled=false;
         this.level.player.body.velocity.x=0;

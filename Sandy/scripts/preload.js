@@ -1,3 +1,5 @@
+var backgroundMusic, powerupSFX, receiveHitSFX, attackSFX, gameOverSFX, winSFX, enemyHitSFX;
+
 var BasicGame = {};
 
 BasicGame.Preload = function (game) {
@@ -53,7 +55,26 @@ BasicGame.Preload.prototype = {
         //healthBar
         this.game.load.image('healthBar', 'images/healthBar.png');
         this.game.load.image('healthBarBG', 'images/healthBarBG.png');
+        
         // AUDIO
+        this.game.load.audio('deserveToBeLoved', ['audio/DeserveToBeLoved.ogg']);
+        this.game.load.audio('powerup', ['audio/Powerup.ogg']);
+        this.game.load.audio('receiveHit', ['audio/ReceiveHit.ogg']);
+        this.game.load.audio('attack', ['audio/Attack.ogg']);
+        this.game.load.audio('gameOver', ['audio/GameOver.ogg']);
+        this.game.load.audio('win', ['audio/Win.ogg']);
+        this.game.load.audio('enemyHit', ['audio/EnemyHit.ogg']);
+
+        powerupSFX = this.game.add.audio('powerup');
+        receiveHitSFX = this.game.add.audio('receiveHit');
+        attackSFX = this.game.add.audio('attack');
+        gameOverSFX = this.game.add.audio('gameOver');
+        winSFX = this.game.add.audio('win');
+        enemyHitSFX = this.game.add.audio('enemyHit');
+
+        backgroundMusic = this.game.add.audio('deserveToBeLoved');
+        backgroundMusic.loop = true;
+        backgroundMusic.volume = 0.3;
     },
     
     create: function () {
