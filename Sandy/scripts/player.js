@@ -16,12 +16,15 @@ var Player = function(game,x,y,sprite) {
     this.body.bounce.y = 0.0;
     this.body.gravity.y = 1000;
     this.body.collideWorldBounds = false;
+    this.body.setSize(8, 22);
     
     // Our two animations, walking left and right.
    /* this.animations.add('left', [0, 1, 2, 3], 10, true);
     this.animations.add('right', [5, 6, 7, 8], 10, true);*/
-    this.animations.add('left', [7, 6, 5, 6], 10, true);
-    this.animations.add('right', [0, 1, 2, 1], 10, true);
+    this.animations.add('left', [7, 6, 5, 6], 10, false);
+    this.animations.add('right', [0, 1, 2, 1], 10, false);
+    this.animations.add('shootLeft', [12, 13, 14, 15], 20, false);
+    this.animations.add('shootRight', [11, 10, 9, 8], 20, false);
     this.scale.setTo(2,2);
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -30,7 +33,7 @@ var Player = function(game,x,y,sprite) {
     this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
     this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(50, 'bullet');
+    this.bullets.createMultiple(500, 'ball');
     this.bullets.setAll('checkWorldBounds', true);
     this.bullets.setAll('outOfBoundsKill', true);
 
@@ -64,7 +67,14 @@ Player.prototype.handleKeys = function () {
     } else if (rightKeyPressed) {
         this.moveRight();
     } else {
-        this.standStill();
+        if(this.animations._anims.shootRight.isPlaying || this.animations._anims.shootLeft.isPlaying)
+        {
+            this.events.onAnimationComplete.add(function(){
+                this.standStill();
+            }, this);
+        }
+        else
+           this.standStill(); 
     }
 
     if (shiftKeyPressed) {
@@ -123,16 +133,23 @@ Player.prototype.receiveHit = function(damage) {
 }
 
 Player.prototype.shoot = function() {
+    
+
     if (this.game.time.now > this.nextFire && this.bullets.countDead() > 0)
     {
+        facingShoot = this.facing === 'right' ? 'shootRight' : 'shootLeft';
+        this.animations.play(facingShoot);
+        
         this.nextFire = this.game.time.now + this.FIRE_RATE;
-
+        //var bullet = this.bullets.create(this.x, this.y, 'ball');
         var bullet = this.bullets.getFirstDead();
+        bullet.scale.setTo(1.3,1.3);
 
         bullet.reset(this.x, this.y);
 
         var bulletXTarget = this.facing === 'right' ? this.x + 1 : this.x - 1;
 
         this.game.physics.arcade.moveToXY(bullet, bulletXTarget, this.y, 500);
+        
     }
 }

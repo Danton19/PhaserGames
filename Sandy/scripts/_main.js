@@ -27,7 +27,7 @@ GameState.prototype.create = function() {
 GameState.prototype.update = function() {
     //collide(object1, object2, collideCallback, processCallback, callbackContext)
     
-    this.game.physics.arcade.collide(this.level.enemies, this.level.player.bullets, this.bulletHitsEnemy);
+    this.game.physics.arcade.overlap(this.level.enemies, this.level.player.bullets, this.bulletHitsEnemy,null,this);
     this.game.physics.arcade.collide(this.level.enemies, this.level.player);
     this.game.physics.arcade.collide(this.level.enemies, this.level.enemies);
     this.game.physics.arcade.overlap(this.level.player, this.level.items, this.level.player.getItem);
@@ -63,19 +63,19 @@ GameState.prototype.goFullScreen = function() {
 
 // TODO: See the way to move this functions to respective objects
 GameState.prototype.bulletHitsEnemy = function(enemy, bullet) {
+    bullet.destroy();
     enemy.destroy();
-    bullet.kill();
 };
 
 GameState.prototype.bulletHitsLayer = function(bullet) {
-    bullet.kill();
+    bullet.destroy();
 };
 
 //render bodies for testing
 /*GameState.prototype.render=function () {
 
-    this.game.debug.bodyInfo(this.level.player);
-    this.game.debug.bodyInfo(this.level.winPoint);
+    this.game.debug.body(this.level.player);
+    //this.game.debug.bodyInfo(this.level.winPoint);
 
 };*/
 GameState.prototype.gameOver= function(){

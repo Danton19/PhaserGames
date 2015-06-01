@@ -30,8 +30,8 @@ BasicGame.Preload.prototype = {
         //this.game.load.spritesheet('heart','images/heartsheet.png',41,35);
         this.game.load.spritesheet('heart','images/heartsheet2.png',123,106);
         //this.game.load.spritesheet('player', 'images/player.png', 32, 48);
-        this.game.load.spritesheet('player', 'images/sandysheet2.png', 17, 24);
-        this.game.load.image('bullet', 'images/bullet.png');
+        this.game.load.spritesheet('player', 'images/sandysheetcomplete.png', 17, 22);
+        this.game.load.image('ball', 'images/ballShoot.png');
         // ENEMIES
         this.game.load.spritesheet('darkEnemy','images/enemies/dark_enemy.png', 32, 48);
         this.game.load.spritesheet('crabAttack','images/crabbyattack2.png', 43, 12);
