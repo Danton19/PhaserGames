@@ -17,11 +17,9 @@ var Player = function(game,x,y,sprite) {
     this.body.bounce.y = 0.0;
     this.body.gravity.y = 1000;
     this.body.collideWorldBounds = false;
-    this.body.setSize(8, 22);
+    this.body.setSize(8, 23);
     
-    // Our two animations, walking left and right.
-   /* this.animations.add('left', [0, 1, 2, 3], 10, true);
-    this.animations.add('right', [5, 6, 7, 8], 10, true);*/
+    // Our animations, walking left and right.
     this.animations.add('left', [7, 6, 5, 6], 10, false);
     this.animations.add('right', [0, 1, 2, 1], 10, false);
     this.animations.add('shootLeft', [12, 13, 14, 15], 20, false);
