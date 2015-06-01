@@ -120,7 +120,7 @@
                  "type":"item",
                  "visible":true,
                  "width":0,
-                 "x":4808,
+                 "x":4820,
                  "y":580
                 }, 
                 {
@@ -314,6 +314,36 @@
                  "width":0,
                  "x":9412.5,
                  "y":2694
+                }, 
+                {
+                 "height":28,
+                 "id":46,
+                 "name":"shells",
+                 "properties":
+                    {
+                     "sprite":"shells"
+                    },
+                 "rotation":0,
+                 "type":"shells",
+                 "visible":true,
+                 "width":765.333333333333,
+                 "x":2496,
+                 "y":834.666666666667
+                }, 
+                {
+                 "height":28,
+                 "id":48,
+                 "name":"shells",
+                 "properties":
+                    {
+                     "sprite":"shells"
+                    },
+                 "rotation":0,
+                 "type":"shells",
+                 "visible":true,
+                 "width":765.333,
+                 "x":480.666833333334,
+                 "y":506
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -322,7 +352,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":41,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "properties":
     {

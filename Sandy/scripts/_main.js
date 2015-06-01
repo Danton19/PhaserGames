@@ -41,6 +41,7 @@ GameState.prototype.update = function() {
     this.game.physics.arcade.collide(this.level.player, this.level.blockedLayer);
     this.game.physics.arcade.collide(this.level.player.bullets, this.level.blockedLayer, this.bulletHitsLayer);
     this.game.physics.arcade.collide(this.level.items, this.level.blockedLayer);
+    this.game.physics.arcade.collide(this.level.shells, this.level.blockedLayer);
     
     //level win trigger
     this.game.physics.arcade.overlap(this.level.player, this.level.winPoint,this.winLevel,null,this);
@@ -72,13 +73,12 @@ GameState.prototype.goFullScreen = function() {
 // TODO: See the way to move this functions to respective objects
 GameState.prototype.bulletHitsEnemy = function(enemy, bullet) {
     bullet.destroy();
-
     enemyHitSFX.play();
     enemy.destroy();
 };
 
 GameState.prototype.bulletHitsLayer = function(bullet) {
-    bullet.destroy();
+    bullet.kill();
 };
 
 //render bodies for testing

@@ -22,6 +22,8 @@ var Level = function(game)
   this.items.enableBody = true;
   this.enemies = this.game.add.group();
   this.enemies.enableBody = true;
+  this.shells = this.game.add.group();
+  this.shells.enableBody = true;
 
   //winpointDoor creation
   this.winPointPos = this.findObjectsByType('point', this, 'objectLayer');
@@ -37,6 +39,7 @@ var Level = function(game)
   //rest of the objects
   this.createObjects('item', this.items);
   this.createObjects('enemy', this.enemies);
+  //this.createObjects('shells', this.shells);
 
 };
 

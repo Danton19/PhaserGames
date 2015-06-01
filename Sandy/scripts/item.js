@@ -7,10 +7,12 @@ var Item= function(game, x, y, sprite){
     this.game.physics.arcade.enableBody(this);
     this.body.bounce.y = 0.4;
     this.body.gravity.y = 1000;
-    //ya se, despues le saco el scale jaja //porfis :P
     this.scale.setTo(0.2, 0.2);
-    this.animations.add('stay', [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1], 8, true);
-    this.animations.play('stay');
+    if(sprite=="heart")
+    {
+        this.animations.add('stay', [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1], 8, true);
+        this.animations.play('stay');
+    }
 
     this.lifeToHeal = 25; // This actually belongs to another more specialized class
 
