@@ -72,9 +72,9 @@ GameState.prototype.goFullScreen = function() {
 
 // TODO: See the way to move this functions to respective objects
 GameState.prototype.bulletHitsEnemy = function(enemy, bullet) {
-    bullet.destroy();
     enemyHitSFX.play();
     enemy.destroy();
+    bullet.destroy();    
 };
 
 GameState.prototype.bulletHitsLayer = function(bullet) {

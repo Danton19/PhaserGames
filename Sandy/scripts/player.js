@@ -34,7 +34,7 @@ var Player = function(game,x,y,sprite) {
     this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
     this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(500, 'ball');
+    this.bullets.createMultiple(50, 'ball');
     this.bullets.setAll('checkWorldBounds', true);
     this.bullets.setAll('outOfBoundsKill', true);
 
