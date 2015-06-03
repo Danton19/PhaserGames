@@ -87,6 +87,10 @@ GameState.prototype.bulletHitsLayer = function(bullet) {
 /*GameState.prototype.render=function () {
 
     this.game.debug.body(this.level.player);
+    this.level.shells.forEach(function(shell){
+       this.game.debug.body(shell); 
+    },this)
+    
     //this.game.debug.bodyInfo(this.level.winPoint);
 
 };*/

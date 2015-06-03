@@ -75,11 +75,12 @@ Level.prototype.createFromTiledObject = function(element, group) {
         sprite = group.add(new Enemy(this.game,this.player,element.x, element.y, element.properties.sprite));
     else if (group == this.shells)
     {
-      sprite = group.create(element.x, element.y+40, element.properties.sprite);
+      sprite = group.create(element.x, element.y+13, element.properties.sprite);
       //ultra hack rectangle to crop
       var cropRectangle = new Phaser.Rectangle(0, 0, element.width, 50);
       sprite.crop(cropRectangle);
       sprite.updateCrop();
+      sprite.body.setSize(element.width, 50);
     }
 
       //copy all properties to the sprite
