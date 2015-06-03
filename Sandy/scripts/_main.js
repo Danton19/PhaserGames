@@ -166,12 +166,20 @@ GameState.prototype.winLevel = function () {
                 winTween = this.game.add.tween(this.winText).to( { alpha: 1 }, 2000, "Linear", true);
                 winTween.onComplete.add(function(){
                     this.game.input.keyboard.enabled=true;
-
-                    this.nextlvlText = this.game.add.text(110,180,'Press Enter for next Level!!');
-                    this.nextlvlText.font = 'Press Start 2P';
-                    this.nextlvlText.fill = 'white';
-                    this.nextlvlText.strokeThickness = 2;
-                    this.nextlvlText.fixedToCamera=true;
+                    if(this.lvlNumber == 1){
+                        this.nextlvlText = this.game.add.text(40, 180,'More Levels soon!');
+                        this.nextlvlText.font = 'Press Start 2P';
+                        this.nextlvlText.fill = 'white';
+                        this.nextlvlText.strokeThickness = 2;
+                        this.nextlvlText.fixedToCamera=true;
+                    }
+                    else{
+                        this.nextlvlText = this.game.add.text(40, 180,'Press Enter for next Level!!');
+                        this.nextlvlText.font = 'Press Start 2P';
+                        this.nextlvlText.fill = 'white';
+                        this.nextlvlText.strokeThickness = 2;
+                        this.nextlvlText.fixedToCamera=true;
+                    }
 
                     this.lvlNumber += 1;
                     this.level.player.isAlive = false;
