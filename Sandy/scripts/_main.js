@@ -3,6 +3,9 @@ var lifeText = null;
 
 var GameState = function(game){};
 
+GameState.prototype.init = function(lvlPar) {
+    this.lvlNumber = lvlPar
+};
 GameState.prototype.preload = function() {
 };
 
@@ -18,7 +21,8 @@ GameState.prototype.create = function() {
     this.game.physics.startSystem(Phaser.Physics.ARCADE); 
 
     // Level creation
-    this.level = new Level(this.game);
+    this.levelsJSON = this.game.cache.getJSON('allLevels');
+    this.level = new Level(this.game, this.levelsJSON.levels[this.lvlNumber]);
 
     // CAMERA
     this.game.camera.follow(this.level.player);
@@ -126,7 +130,7 @@ GameState.prototype.gameOver= function(){
 GameState.prototype.checkForRestart = function () {
     var enterKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.ENTER);
     if (enterKeyPressed) { // RESTART
-        this.game.state.restart();
+        this.game.state.restart(true, false, this.lvlNumber);
     };
 };
 
@@ -134,6 +138,9 @@ GameState.prototype.winLevel = function () {
     if (this.level.player.body.onFloor() && this.level.player.x>=this.level.winPoint.x+27 && this.level.player.x <= this.level.winPoint.x+30){
         winSFX.play();
 
+        this.hud.healthbar.destroy();
+        this.hud.healthbarFrame.destroy();
+        this.hud.lifeText.destroy();
         this.game.input.keyboard.reset();
         this.game.input.keyboard.enabled=false;
         this.level.player.body.velocity.x=0;
@@ -143,7 +150,7 @@ GameState.prototype.winLevel = function () {
         anim=this.level.winPoint.animations.play('open');
         anim.onComplete.add(function(){
 
-            this.closeDoor=this.game.add.sprite(this.level.winPointPos[0].x,this.level.winPointPos[0].y,'onlyDoor',2);
+            this.closeDoor=this.game.add.sprite(this.level.winPointPos[0].x,this.level.winPointPos[0].y + 32,'onlyDoor',2);
             this.closeDoor.scale.setTo(2,2);
             this.closeDoor.animations.add('close',[2,1,0],8,false);
             closeAnim=this.closeDoor.animations.play('close');
@@ -155,9 +162,22 @@ GameState.prototype.winLevel = function () {
                 this.winText.strokeThickness = 2;
                 this.winText.fixedToCamera=true;
                 this.winText.alpha = 0.1;
-                this.game.add.tween(this.winText).to( { alpha: 1 }, 2000, "Linear", true);
                 this.level.player.destroy();
-                this.game.input.keyboard.enabled=true;
+                winTween = this.game.add.tween(this.winText).to( { alpha: 1 }, 2000, "Linear", true);
+                winTween.onComplete.add(function(){
+                    this.game.input.keyboard.enabled=true;
+
+                    this.nextlvlText = this.game.add.text(110,180,'Press Enter for next Level!!');
+                    this.nextlvlText.font = 'Press Start 2P';
+                    this.nextlvlText.fill = 'white';
+                    this.nextlvlText.strokeThickness = 2;
+                    this.nextlvlText.fixedToCamera=true;
+
+                    this.lvlNumber += 1;
+                    this.level.player.isAlive = false;
+                    this.level.player.life = 0;
+                    
+                },this);
 
             },this);
 

@@ -18,11 +18,16 @@ BasicGame.Preload.prototype = {
         //  Load the Google WebFont Loader script
         this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 
+        //all levels
+        this.game.load.json('allLevels', 'levels/allLevels.json');
+
         //LEVEL 1
         this.load.tilemap('level0', 'levels/lvl0.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.tilemap('level1', 'levels/lvl1.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.tilemap('level2', 'levels/lvl2.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('dirt', 'images/plainDirt0.png');
         this.game.load.image('sandFloorSheet', 'images/sandFloorSheet.png');
+        this.game.load.image('sandFloorSheet-sm', 'images/sandFloorSheet-sm.png');
         this.game.load.spritesheet('door','images/door.png',27,29);
         this.game.load.spritesheet('onlyDoor','images/onlyDoor.png',27,29);
         // IMAGES

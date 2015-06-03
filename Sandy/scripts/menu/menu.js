@@ -131,7 +131,7 @@ BasicGame.Menu.prototype = {
     },
 
     playState: function () {
-        this.game.state.start('game');
+        this.game.state.start('game', true, false, 0);
     },
 
     howToState: function () {

@@ -1,11 +1,11 @@
-var Level = function(game)
+var Level = function(game, levelData)
 {
   //LEVEL TEST
-
-  Phaser.Tilemap.call(this,game,'level1');
+  Phaser.Tilemap.call(this,game,levelData.name);
 
   //add the tileset as named in Tiled
   this.addTilesetImage('sandFloorSheet', 'sandFloorSheet');
+  this.addTilesetImage('sandFloorSheet-sm', 'sandFloorSheet-sm');
   this.addTilesetImage('sky', 'sky');
   this.addTilesetImage('player', 'player');
 
@@ -27,7 +27,7 @@ var Level = function(game)
 
   //winpointDoor creation
   this.winPointPos = this.findObjectsByType('point', this, 'objectLayer');
-  this.winPoint = this.game.add.sprite(this.winPointPos[0].x, this.winPointPos[0].y, this.winPointPos[0].properties.sprite, 0);
+  this.winPoint = this.game.add.sprite(this.winPointPos[0].x, this.winPointPos[0].y + 32, this.winPointPos[0].properties.sprite, 0);
   this.game.physics.arcade.enableBody(this.winPoint);
   this.winPoint.scale.setTo(2, 2);
   this.winPoint.animations.add('open', [0, 1, 2], 8, false);
