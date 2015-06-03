@@ -43,7 +43,8 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function(game) {
-    this.handleKeys(game);
+    if(this.exists)
+        this.handleKeys(game);
 };
 
 Player.prototype.handleKeys = function () {
@@ -56,7 +57,7 @@ Player.prototype.handleKeys = function () {
 
     // Reset the players velocity (movement)
     this.body.velocity.x = 0;
-
+    
     if (upKeyPressed || spacebarKeyPressed) {
         this.jump();
     };

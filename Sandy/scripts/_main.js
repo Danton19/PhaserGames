@@ -35,7 +35,7 @@ GameState.prototype.update = function() {
     this.game.physics.arcade.collide(this.level.enemies, this.level.player);
     this.game.physics.arcade.collide(this.level.enemies, this.level.enemies);
     this.game.physics.arcade.overlap(this.level.player, this.level.items, this.level.player.getItem);
-    this.game.physics.arcade.overlap(this.level.player, this.level.shells, this.dieWithShells, null, this);
+    this.game.physics.arcade.overlap(this.level.player, this.level.shells, this.gameOver, null, this);
     
     // COLLISIONS WITH LAYERS
     this.game.physics.arcade.collide(this.level.enemies, this.level.blockedLayer);
@@ -90,10 +90,6 @@ GameState.prototype.bulletHitsLayer = function(bullet) {
     //this.game.debug.bodyInfo(this.level.winPoint);
 
 };*/
-GameState.prototype.dieWithShells= function(player,shell){
-    this.level.shells.removeAll(true,true);
-    this.gameOver();
-};
 
 
 GameState.prototype.gameOver= function(){
@@ -101,7 +97,7 @@ GameState.prototype.gameOver= function(){
     gameOverSFX.play();
     this.level.player.life = 0;
     this.level.player.isAlive = false;
-    this.level.player.destroy(true);
+    this.level.player.kill();
 
     this.camCenterX = this.game.camera.width / 2;
     this.camCenterY = this.game.camera.height / 2;
