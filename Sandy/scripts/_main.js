@@ -35,6 +35,7 @@ GameState.prototype.update = function() {
     this.game.physics.arcade.collide(this.level.enemies, this.level.player);
     this.game.physics.arcade.collide(this.level.enemies, this.level.enemies);
     this.game.physics.arcade.overlap(this.level.player, this.level.items, this.level.player.getItem);
+    this.game.physics.arcade.overlap(this.level.player, this.level.shells, this.dieWithShells, null, this);
     
     // COLLISIONS WITH LAYERS
     this.game.physics.arcade.collide(this.level.enemies, this.level.blockedLayer);
@@ -56,7 +57,6 @@ GameState.prototype.update = function() {
         else
             this.checkForRestart();
 
-        this.level.player.isAlive = false;
     }
 };
 
@@ -90,11 +90,17 @@ GameState.prototype.bulletHitsLayer = function(bullet) {
     //this.game.debug.bodyInfo(this.level.winPoint);
 
 };*/
+GameState.prototype.dieWithShells= function(player,shell){
+    this.level.shells.removeAll(true,true);
+    this.gameOver();
+};
+
 
 GameState.prototype.gameOver= function(){
     backgroundMusic.stop();
     gameOverSFX.play();
-
+    this.level.player.life = 0;
+    this.level.player.isAlive = false;
     this.level.player.destroy(true);
 
     this.camCenterX = this.game.camera.width / 2;
@@ -114,7 +120,6 @@ GameState.prototype.gameOver= function(){
     this.restartText.strokeThickness = 2;
     this.restartText.alpha = 0.1;
     this.game.add.tween(this.restartText).to( { alpha: 1 }, 2000, "Linear", true);
-    this.level.player.destroy();
     this.game.input.keyboard.enabled = true;
 };
 

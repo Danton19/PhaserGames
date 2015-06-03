@@ -39,7 +39,8 @@ var Level = function(game)
   //rest of the objects
   this.createObjects('item', this.items);
   this.createObjects('enemy', this.enemies);
-  //this.createObjects('shells', this.shells);
+  this.createObjects('shells', this.shells);
+
 
 };
 
@@ -70,8 +71,16 @@ Level.prototype.createFromTiledObject = function(element, group) {
     var sprite
     if(group == this.items)
        sprite = group.add(new Item(this.game,element.x, element.y, element.properties.sprite));
-    else
+    else if (group == this.enemies)
         sprite = group.add(new Enemy(this.game,this.player,element.x, element.y, element.properties.sprite));
+    else if (group == this.shells)
+    {
+      sprite = group.create(element.x, element.y+40, element.properties.sprite);
+      //ultra hack rectangle to crop
+      var cropRectangle = new Phaser.Rectangle(0, 0, element.width, 50);
+      sprite.crop(cropRectangle);
+      sprite.updateCrop();
+    }
 
       //copy all properties to the sprite
       Object.keys(element.properties).forEach(function(key){
