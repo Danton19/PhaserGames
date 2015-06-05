@@ -16,7 +16,7 @@ GameState.prototype.create = function() {
     
     backgroundMusic.play();
 
-    this.goFullScreen();
+    //this.goFullScreen();
     
     this.game.physics.startSystem(Phaser.Physics.ARCADE); 
 
@@ -32,7 +32,7 @@ GameState.prototype.create = function() {
     this.hud = new HUD(this.game, this.level.player);
 
     // VirtualPad
-    //this.vrPad = new VirtualPad(this.game, this.level.player);
+    this.vrPad = new VirtualPad(this.game, this.level.player);
 };
 
 GameState.prototype.update = function() {
@@ -62,7 +62,7 @@ GameState.prototype.update = function() {
         if (this.level.player.isAlive)
             this.gameOver();
         else
-            this.checkForRestart();
+            this.checkForRestart(this.vrPad.restartFlag);
 
     }
 };
@@ -91,17 +91,17 @@ GameState.prototype.bulletHitsLayer = function(bullet) {
 };
 
 //render bodies for testing
-GameState.prototype.render=function () {
+/*GameState.prototype.render=function () {
 
-    /*this.game.debug.body(this.level.player);
+    this.game.debug.body(this.level.player);
     this.level.shells.forEach(function(shell){
        this.game.debug.body(shell); 
-    },this)*/
+    },this)
     this.game.debug.pointer(this.input.mousePointer);
     
     //this.game.debug.bodyInfo(this.level.winPoint);
 
-};
+};*/
 
 
 GameState.prototype.gameOver= function(){
@@ -120,20 +120,12 @@ GameState.prototype.gameOver= function(){
     this.gameOverImg.alpha = 0;
     this.game.add.tween(this.gameOverImg).to( { alpha: 1 }, 1000, "Linear", true);
 
-    this.restartText = this.game.add.text(this.camCenterX, this.camCenterY + 200, 'Press enter to restart');
-    this.restartText.anchor.setTo(0.5, 0.5);
-    this.restartText.fixedToCamera = true;
-    this.restartText.font = 'Press Start 2P';
-    this.restartText.fill = 'white';
-    this.restartText.strokeThickness = 2;
-    this.restartText.alpha = 0.1;
-    this.game.add.tween(this.restartText).to( { alpha: 1 }, 2000, "Linear", true);
-    this.game.input.keyboard.enabled = true;
+    this.vrPad.buttonRestart.alpha = 1;
+
 };
 
-GameState.prototype.checkForRestart = function () {
-    var enterKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.ENTER);
-    if (enterKeyPressed) { // RESTART
+GameState.prototype.checkForRestart = function (flag) {
+    if (flag) { // RESTART
         this.game.state.restart(true, false, this.lvlNumber);
     };
 };
@@ -145,8 +137,6 @@ GameState.prototype.winLevel = function () {
         this.hud.healthbar.destroy();
         this.hud.healthbarFrame.destroy();
         this.hud.lifeText.destroy();
-        this.game.input.keyboard.reset();
-        this.game.input.keyboard.enabled=false;
         this.level.player.body.velocity.x=0;
         //null door body,function run just once
         this.level.winPoint.body=null;
@@ -171,21 +161,13 @@ GameState.prototype.winLevel = function () {
                 winTween.onComplete.add(function(){
                     this.game.input.keyboard.enabled=true;
                     if(this.lvlNumber == 1){
-                        this.nextlvlText = this.game.add.text(40, 180,'More Levels soon!');
-                        this.nextlvlText.font = 'Press Start 2P';
-                        this.nextlvlText.fill = 'white';
-                        this.nextlvlText.strokeThickness = 2;
-                        this.nextlvlText.fixedToCamera=true;
+                        this.vrPad.buttonRestart.alpha = 1;
                     }
                     else{
-                        this.nextlvlText = this.game.add.text(40, 180,'Press Enter for next Level!!');
-                        this.nextlvlText.font = 'Press Start 2P';
-                        this.nextlvlText.fill = 'white';
-                        this.nextlvlText.strokeThickness = 2;
-                        this.nextlvlText.fixedToCamera=true;
+                        this.vrPad.buttonNext.alpha = 1;
+                        this.lvlNumber += 1;
                     }
 
-                    this.lvlNumber += 1;
                     this.level.player.isAlive = false;
                     this.level.player.life = 0;
                     

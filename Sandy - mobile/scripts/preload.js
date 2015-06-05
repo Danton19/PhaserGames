@@ -26,6 +26,8 @@ BasicGame.Preload.prototype = {
         this.game.load.image('btn-left', 'images/leftPad.png',77,54);
         this.game.load.image('btn-a', 'images/buttonA.png',78,78);
         this.game.load.image('btn-b', 'images/buttonB.png',78,78);
+        this.game.load.image('btn-restart', 'images/buttonRestart.png',256,256);
+        this.game.load.image('btn-next', 'images/buttonNext.png',256,256);
 
         //LEVEL 1
         this.load.tilemap('level0', 'levels/lvl0.json', null, Phaser.Tilemap.TILED_JSON);

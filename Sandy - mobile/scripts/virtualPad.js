@@ -1,50 +1,49 @@
 var VirtualPad = function(game, player) {
     
-    //this.game = game;
+    this.game = game;
     this.player = player;
-    this.moveL = true;
+
+    this.restartFlag = false;
     // create our virtual game controller buttons 
-    this.buttonjump = new Phaser.Button(game, 600, 500, 'btn-a', null, this);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
-    this.buttonjump.fixedToCamera = true;
-    this.buttonjump.events.onInputDown.add(function(){this.jump=true;});
-    this.buttonjump.events.onInputUp.add(function(){this.jump=false;});
+    this.buttonJump = this.game.add.button(600, 350, 'btn-a', null, this);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+    this.buttonJump.inputEnabled = true;
+    this.buttonJump.fixedToCamera = true;
+    this.buttonJump.events.onInputDown.add(function(){this.player.moveJump=true;}, this);
+    this.buttonJump.events.onInputUp.add(function(){this.player.moveJump=false;}, this);
 
-    this.buttonAttack = game.add.button(700, 500, 'btn-b', null, this);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+    this.buttonAttack = this.game.add.button(720, 350, 'btn-b', null, this);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+    this.buttonAttack.inputEnabled = true;
     this.buttonAttack.fixedToCamera = true;
-    this.buttonAttack.events.onInputDown.add(function(){this.attack=true;});
-    this.buttonAttack.events.onInputUp.add(function(){this.attack=false;});
+    this.buttonAttack.events.onInputDown.add(function(){this.player.moveAttack=true;}, this);
+    this.buttonAttack.events.onInputUp.add(function(){this.player.moveAttack=false;}, this);
 
-    this.buttonleft = game.add.button(0, 20, 'btn-left', null, this);
-    this.buttonleft.inputEnabled = true;
-    this.buttonleft.fixedToCamera = true;
-    this.buttonleft.events.onInputOver.add(function(){this.moveL=true;});
-    this.buttonleft.events.onInputOut.add(function(){this.moveL=false;});
-    this.buttonleft.events.onInputDown.add(function(){this.moveL=true;});
-    this.buttonleft.events.onInputUp.add(function(){this.moveL=false;});
+    this.buttonLeft = this.game.add.button(20, 350, 'btn-left', null, this);
+    this.buttonLeft.inputEnabled = true;
+    this.buttonLeft.fixedToCamera = true;
+    this.buttonLeft.events.onInputDown.add(function(){this.player.moveL=true;}, this);
+    this.buttonLeft.events.onInputUp.add(function(){this.player.moveL=false;}, this);
 
-    this.buttonright = game.add.button(160, 472, 'btn-right', null, this);
-    this.buttonright.fixedToCamera = true;
-    this.buttonright.events.onInputDown.add(function(){this.moveR=true;});
-    this.buttonright.events.onInputUp.add(function(){this.moveR=false;});
+    this.buttonRight = this.game.add.button(97, 350, 'btn-right', null, this);
+    this.buttonRight.inputEnabled = true;
+    this.buttonRight.fixedToCamera = true;
+    this.buttonRight.events.onInputDown.add(function(){this.player.moveR=true;}, this);
+    this.buttonRight.events.onInputUp.add(function(){this.player.moveR=false;}, this);
 
+    this.buttonRestart = this.game.add.button(420, 340 , 'btn-restart', null, this);
+    this.buttonRestart.scale.setTo(0.3,0.3);
+    this.buttonRestart.inputEnabled = true;
+    this.buttonRestart.alpha = 0;
+    this.buttonRestart.fixedToCamera = true;
+    this.buttonRestart.events.onInputDown.add(function(){this.restartFlag = true;}, this);
+
+    this.buttonNext = this.game.add.button(420, 340 , 'btn-next', null, this);
+    this.buttonNext.scale.setTo(0.3,0.3);
+    this.buttonNext.inputEnabled = true;
+    this.buttonNext.alpha = 0;
+    this.buttonNext.fixedToCamera = true;
+    this.buttonNext.events.onInputDown.add(function(){this.restartFlag = true;}, this);
     //game.add.existing(this);
 };
 
-VirtualPad.prototype = Object.create(Phaser.Text.prototype);
+VirtualPad.prototype = Object.create(Phaser.Sprite.prototype);
 VirtualPad.prototype.constructor = VirtualPad;
-
-VirtualPad.prototype.update = function(game) {
-
-    if(this.moveL){
-        this.player.moveLeft();
-    }
-    if(this.moveR){
-        this.player.moveRight();
-    }
-    if(this.jump){
-        this.player.jump();
-    }
-    if(this.attack){
-        this.player.shot();
-    }
-};

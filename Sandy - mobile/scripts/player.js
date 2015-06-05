@@ -1,6 +1,6 @@
 var Player = function(game,x,y,sprite) {
     // CONSTANTS
-    this.X_VELOCITY = 150;
+    this.X_VELOCITY = 300;
     this.JUMP_VELOCITY = 500;
     this.FIRE_RATE = 300;
     this.MAX_LIFE = 100;
@@ -37,14 +37,10 @@ var Player = function(game,x,y,sprite) {
     this.bullets.setAll('outOfBoundsKill', true);
 
     //controls
-    this.moveL=true;
-    this.buttonleft = game.add.button(0, 20, 'btn-left', null, this);
-    this.buttonleft.inputEnabled = true;
-    this.buttonleft.fixedToCamera = true;
-    this.buttonleft.events.onInputOver.add(function(){this.moveL=true;});
-    this.buttonleft.events.onInputOut.add(function(){this.moveL=false;});
-    this.buttonleft.events.onInputDown.add(function(){this.moveL=true;});
-    this.buttonleft.events.onInputUp.add(function(){this.moveL=false;});
+    this.moveL;
+    this.moveR;
+    this.moveAttack;
+    this.moveJump;
 
     this.game.add.existing(this);
 };
@@ -53,33 +49,15 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function(game) {
-    if(this.exists)
-        this.handleKeys(game);
+
+    this.body.velocity.x = 0;
+
     if(this.moveL){
         this.moveLeft();
     }
-};
-
-Player.prototype.handleKeys = function () {
-    var upKeyPressed = this.cursors.up.isDown;
-    var spacebarKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
-    var leftKeyPressed = this.cursors.left.isDown;
-    var rightKeyPressed = this.cursors.right.isDown;
-    var shiftKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.SHIFT);
-    var ctrlKeyPressed = this.game.input.keyboard.isDown(Phaser.Keyboard.CONTROL);
-
-    // Reset the players velocity (movement)
-    this.body.velocity.x = 0;
-    
-    if (upKeyPressed || spacebarKeyPressed) {
-        this.jump();
-    };
-
-    if (leftKeyPressed) {
-        this.moveLeft();
-    } else if (rightKeyPressed) {
+    else if(this.moveR){
         this.moveRight();
-    } else {
+    }else {
         if(this.animations._anims.shootRight.isPlaying || this.animations._anims.shootLeft.isPlaying)
         {
             this.events.onAnimationComplete.add(function(){
@@ -88,13 +66,12 @@ Player.prototype.handleKeys = function () {
         }
         else
            this.standStill(); 
-    }
+    } 
 
-    if (shiftKeyPressed) {
-        this.run();
+    if(this.moveJump){
+        this.jump();
     }
-
-    if (ctrlKeyPressed) {
+    if(this.moveAttack){
         this.shoot();
     }
 };
