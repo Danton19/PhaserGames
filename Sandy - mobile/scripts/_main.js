@@ -16,7 +16,7 @@ GameState.prototype.create = function() {
     
     backgroundMusic.play();
 
-    //this.goFullScreen();
+    this.goFullScreen();
     
     this.game.physics.startSystem(Phaser.Physics.ARCADE); 
 
